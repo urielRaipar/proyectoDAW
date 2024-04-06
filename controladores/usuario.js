@@ -1,6 +1,8 @@
 // Modulos
 const Usuario=require('../modelos/usuario');
 const bcrypt=require('bcrypt-nodejs');
+const jwt=require('../servicios/jwt');
+const multipart=require('connect-multiparty');
 
 function pruebas(req,res){
     res.status(200).send({
@@ -55,8 +57,7 @@ function loginUsuario(req, res){
     let email=params.email;
     let contrasenya=params.contrasenya;
 
-    
-
+    //Consulta en la bbdd 
     Usuario.findOne({email: email.toLowerCase()}).then((user)=>{
         
         if(user){
@@ -67,8 +68,11 @@ function loginUsuario(req, res){
                     // devolver datos del usuario logeado
                     if(params.gethash){
                         // devolver token 
+                        res.status(200).send({
+                            token:jwt.createToken(user)
+                        });
                     }else{
-                        res.status(200).send({user})
+                        res.status(200).send({user});
                     }
                 }else{
                     res.status(404).send({message:'El usuario no ha podido loguearse'});
@@ -83,8 +87,60 @@ function loginUsuario(req, res){
     })
 }
 
+// Actualizar usuario
+function updateUser(req,res){
+    let userId=req.params.id;
+    let update=req.body;
+
+    Usuario.findByIdAndUpdate(userId, update).then((userUpdated)=>{
+        if(!userUpdated){
+            res.status(404).send({message:'No se ha podidio actualizar el usuario'});
+        }else{
+            res.status(200).send({user:userUpdated});
+        }
+    })
+    .catch(err=>{
+        res.status(500),send({message:'Error al actualizar el usuario'});
+    });
+}
+
+// Subir imagenes de usuario
+function uploadImage(req,res){
+    let userId=req.params.id;
+    let file_name='Imagen no subida...';
+
+    if(req.files){
+        let file_path=req.files.image.path;
+        let file_split=file_path.split('\\');
+        let file_name= file_split[2];
+
+        let ext_split=file_name.split('\.');
+        let file_ext=ext_split[1];
+
+       if(file_ext=='png'|| file_ext=='jpg'||file_ext=='gif'){
+            Usuario.findByIdAndUpdate(userId,{imagen:file_name}).then(userUpdated=>{
+                if(!userUpdated){
+                    res.status(404).send({message:'No se ha podidio actualizar la imagen de usuario'});
+                }else{
+                    res.status(200).send({user:userUpdated});
+                }
+            })
+            .catch(err=>{
+                res.status(200).send({message:'Error al subir la imagen'})
+            });
+       }else{
+            res.status(200).send({message:'Extension del archivo no valida'});
+       }
+
+    }else{
+        res.status(200).send({message:'No se ha subido ninguna imagen...'});
+    }
+}
+
 module.exports={
     pruebas,
     guardarUsuario,
-    loginUsuario
+    loginUsuario,
+    updateUser,
+    uploadImage
 };
