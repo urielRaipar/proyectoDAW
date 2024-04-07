@@ -3,6 +3,8 @@ const Usuario=require('../modelos/usuario');
 const bcrypt=require('bcrypt-nodejs');
 const jwt=require('../servicios/jwt');
 const multipart=require('connect-multiparty');
+const fs=require('fs');
+const path=require('path');
 
 function pruebas(req,res){
     res.status(200).send({
@@ -137,10 +139,25 @@ function uploadImage(req,res){
     }
 }
 
+// Mostrar imagen de usuario
+function getImageFile(req,res){
+    let imageFile=req.params.imageFile;
+    let path_file='./uploads/usuarios/'+imageFile;
+
+    fs.exists(path_file,exists=>{
+        if(exists){
+            res.sendFile(path.resolve(path_file));
+        }else{
+            res.status(200).send({message:'No existe la imagen...'})
+        }
+    }); 
+}
+
 module.exports={
     pruebas,
     guardarUsuario,
     loginUsuario,
     updateUser,
-    uploadImage
+    uploadImage,
+    getImageFile
 };
