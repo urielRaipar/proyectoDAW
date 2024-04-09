@@ -112,6 +112,7 @@ function uploadImage(req,res){
     let file_name='Imagen no subida...';
 
     if(req.files){
+         // Puede que en un futuro haya que sustituir req.files.imagen.path
         let file_path=req.files.image.path;
         let file_split=file_path.split('\\');
         let file_name= file_split[2];

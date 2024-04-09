@@ -5,6 +5,7 @@ const Artista=require('../modelos/artista');
 const Album=require('../modelos/album');
 const Cancion=require('../modelos/cancion');
 const mongoosePaginate=require('mongoose-pagination');
+const album = require('../modelos/album');
 
 // Mostrar artista
 function getArtist(req,res){
@@ -84,9 +85,96 @@ function updateArtist(req,res){
     })
 }
 
+// Borrar artistas
+function deleteArtist(req, res){
+    let artistId=req.params.id;
+
+    Artista.findByIdAndDelete({_id:artistId}).then(artistRemoved=>{
+        if(!artistRemoved){
+            res.status(404).send({message: 'El artista no ha sido eliminado'});
+        }else{
+            Album.find({artist: artistRemoved._id}).deleteMany().then(albumRemoved=>{
+                if(!albumRemoved){
+                    res.status(404).send({message: 'El album no ha sido eliminado'});
+                }else{
+
+                    Cancion.find({album:albumRemoved._id}).deleteMany().then(songRemoved=>{
+                        if(!songRemoved){
+                            res.status(404).send({message: 'La cancion no ha sido eliminada'});
+                        }else{
+                            res.status(200).send({artist:artistRemoved});
+                        }
+                    })
+                    .catch(err=>{
+                        res.status(500).send({message: 'Error al eliminar la cancion'});
+                    })
+                }
+            })
+            .catch(err=>{
+                res.status(500).send({message: 'Error al eliminar el album'});
+            })
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message: 'Error en el borrado'});
+    })
+}
+
+// Subir imagenes de artista
+function uploadImage(req,res){
+   let artistId=req.params.id;
+   let file_name='No subido...';
+
+   if(req.files){
+        let file_path=req.files.imagen.path;
+        let file_split = file_path.split('\\');
+        let file_name=file_split[2];
+
+        let ext_split=file_name.split('\.');
+        let file_ext=ext_split[1];
+
+        if(file_ext=='png' || file_ext=='jpg' || file_ext=='gif'){
+            Artista.findByIdAndUpdate(artistId,{imagen:file_name}).then(artistUpdated=>{
+                if(!artistUpdated){
+                    res.status(404).send({message:'No se ha podidio actualizar la imagen de usuario'});
+                }else{
+                    res.status(200).send({artist:artistUpdated});
+                }
+            })
+            .catch(err=>{
+                res.status(500).send({message: 'Error al subir la imagen'});
+            })
+        }else{
+            res.status(200).send({message:'Extension del archivo no valida'});
+        }
+   }else{
+        res.status(200).send({message:'No se ha subido ninguna imagen...'});
+   }
+
+  
+}
+
+// Mostrar imagen de artista
+function getImageFile(req,res){
+    let imageFile=req.params.imageFile;
+    let path_file='./uploads/artistas/'+imageFile;
+
+    fs.exists(path_file,exists=>{
+        if(exists){
+            res.sendFile(path.resolve(path_file));
+        }else{
+            res.status(200).send({message:'No existe la imagen...'})
+        }
+    }); 
+}
+
+
 module.exports={
     getArtist,
     saveArtist,
     getArtists,
-    updateArtist
+    updateArtist,
+    deleteArtist,
+    uploadImage,
+    getImageFile
 }
