@@ -70,9 +70,105 @@ function getAlbums(req,res){
     })
 }
 
+// Actualizar album
+function updateAlbum(req,res){
+    let albumId=req.params.id;
+    let update=req.body;
+
+    Album.findByIdAndUpdate(albumId,update).then(albumUpdated=>{
+        if(!albumUpdated){
+            res.status(404).send({message:'No se ha actualizado el album'});
+        }else{
+            res.status(200).send({album:albumUpdated});
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message:'Error en el servidor'});
+    })
+}
+
+// Borrar album
+function deleteAlbum(req,res){
+    let albumId=req.params.id;
+
+    Album.findByIdAndDelete({_id:albumId}).then(albumRemoved=>{
+        if(!albumRemoved){
+            res.status(404).send({message: 'El album no ha sido eliminado'});
+        }else{
+
+            Cancion.find({album:albumRemoved._id}).deleteMany().then(songRemoved=>{
+                if(!songRemoved){
+                    res.status(404).send({message: 'La cancion no ha sido eliminada'});
+                }else{
+                    res.status(200).send({album:albumRemoved});
+                }
+            })
+            .catch(err=>{
+                res.status(500).send({message: 'Error al eliminar la cancion'});
+            })
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message: 'Error al eliminar el album'});
+    })
+}
+
+// Subir imagen album
+function uploadImage(req,res){
+    let albumId=req.params.id;
+    let file_name='No subido...';
+ 
+    if(req.files){
+         let file_path=req.files.imagen.path;
+         let file_split = file_path.split('\\');
+         let file_name=file_split[2];
+ 
+         let ext_split=file_name.split('\.');
+         let file_ext=ext_split[1];
+ 
+         if(file_ext=='png' || file_ext=='jpg' || file_ext=='gif'){
+             Album.findByIdAndUpdate(albumId,{imagen:file_name}).then(albumUpdated=>{
+                 if(!albumUpdated){
+                     res.status(404).send({message:'No se ha podidio actualizar la imagen del album'});
+                 }else{
+                     res.status(200).send({album:albumUpdated});
+                 }
+             })
+             .catch(err=>{
+                 res.status(500).send({message: 'Error al subir la imagen'});
+             })
+         }else{
+             res.status(200).send({message:'Extension del archivo no valida'});
+         }
+    }else{
+         res.status(200).send({message:'No se ha subido ninguna imagen...'});
+    }
+ 
+   
+ }
+ 
+ // Mostrar imagen album
+ function getImageFile(req,res){
+     let imageFile=req.params.imageFile;
+     let path_file='./uploads/albums/'+imageFile;
+ 
+     fs.exists(path_file,exists=>{
+         if(exists){
+             res.sendFile(path.resolve(path_file));
+         }else{
+             res.status(200).send({message:'No existe la imagen...'})
+         }
+     }); 
+ }
+ 
+
 
 module.exports={
     getAlbum,
     saveAlbum,
-    getAlbums
+    getAlbums,
+    updateAlbum,
+    deleteAlbum,
+    uploadImage,
+    getImageFile
 }
