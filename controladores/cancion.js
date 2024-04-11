@@ -76,9 +76,95 @@ function getSongs(req,res){
 
 }
 
+// Actualizar cancion
+function updateSong(req,res){
+    let songId=req.params.id;
+    let update=req.body;
+
+    Cancion.findByIdAndUpdate(songId,update).then(songUpdate=>{
+        if(!songUpdate){
+            res.status(404).send({message:'La cancion no se ha actualizado correctamente'});
+        }else{
+            res.status(200).send({songs:songUpdate});
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message:'Error en el servidor'});
+    })
+
+}
+
+// Eliminar cancion
+function deleteSong(req,res){
+    let songId=req.params.id;
+    console.log(songId)
+    Cancion.findByIdAndDelete({_id:songId}).then(songRemove=>{
+        if(!songRemove){
+            res.status(404).send({message:'La cancion no se ha borrado correctamente'});
+        }else{
+            res.status(200).send({songs:songRemove});
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message:'Error en el servidor'});
+    })
+}
+
+// Subir fichero de audio
+function subirAudio(req,res){
+    let songId=req.params.id;
+    let file_name='No subido...';
+ 
+    if(req.files){
+         let file_path=req.files.ficheroMP3.path;
+         let file_split = file_path.split('\\');
+         let file_name=file_split[2];
+ 
+         let ext_split=file_name.split('\.');
+         let file_ext=ext_split[1];
+ 
+         if(file_ext=='mp3' || file_ext=='ogg'){
+             Cancion.findByIdAndUpdate(songId,{ficheroMP3:file_name}).then(songUpdated=>{
+                 if(!songUpdated){
+                     res.status(404).send({message:'No se ha podidio actualizar la cancion'});
+                 }else{
+                     res.status(200).send({song:songUpdated});
+                 }
+             })
+             .catch(err=>{
+                 res.status(500).send({message: 'Error al subir el audio'});
+             })
+         }else{
+             res.status(200).send({message:'Extension del archivo no valida'});
+         }
+    }else{
+         res.status(200).send({message:'No se ha subido ningun fichero de audio...'});
+    }
+ 
+   
+ }
+ 
+ // Mostrar fichero de audio
+ function mostrarAudio(req,res){
+     let songFile=req.params.audioFile;
+     let path_file='./uploads/canciones/'+songFile;
+ 
+     fs.exists(path_file,exists=>{
+         if(exists){
+             res.sendFile(path.resolve(path_file));
+         }else{
+             res.status(200).send({message:'No existe el audio...'})
+         }
+     }); 
+ }
+
 
 module.exports={
     getSong,
     saveCanciones,
-    getSongs
+    getSongs,
+    updateSong,
+    deleteSong,
+    subirAudio,
+    mostrarAudio
 }
