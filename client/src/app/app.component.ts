@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet,RouterLink } from '@angular/router';
 import { Usuario } from './models/usuario';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuarioServicio } from './service/usuario.servicio';
+import { RegistroComponent } from './components/registro/registro.component';
+
+
 
 @Component({
   selector: 'app-root',
@@ -11,7 +14,9 @@ import { UsuarioServicio } from './service/usuario.servicio';
   imports: [
     RouterOutlet,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RegistroComponent,
+    RouterLink
   ],
   providers: [UsuarioServicio],
   templateUrl: './app.component.html',
@@ -98,5 +103,8 @@ export class AppComponent implements OnInit {
 
     this.identificacion=null;
     this.token=null;
+
+    location.href = 'http://localhost:4200/';
+
   }
 }

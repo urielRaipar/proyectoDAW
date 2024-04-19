@@ -1,0 +1,23 @@
+<div class="divFormuRegist">
+    <h1>Registrate</h1>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister()" class="formuRegist">
+        <label for="nombre">Nombre:</label><br/>
+        <input type='text' #nombre="ngModel" name='nombre' [(ngModel)]="usuario_registro.nombre" required/>
+        <br/><br/>
+
+        <label for="apellidos">Apellidos:</label><br/>
+        <input type='text' #apellidos="ngModel" name='apellidos' [(ngModel)]="usuario_registro.apellidos" required/>
+        <br/><br/>
+
+        <label for="correo">Correo electrónico:</label><br/>
+        <input type='email' #email="ngModel" name='email' [(ngModel)]="usuario_registro.email" required/>
+        <br/><br/>
+
+        <label for="contrasenya">Contraseña:</label><br/>
+        <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario_registro.contrasenya" required/>
+        <br/><br/>
+
+        <input type='submit' value="Registrarse"/>
+    </form>
+</div>
+

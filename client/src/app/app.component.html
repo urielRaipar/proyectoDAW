@@ -30,31 +30,11 @@
                 <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required/>
                 <br/><br/>
                 <input type='submit' value="Entrar"/>
-            </form>
+                <p>Si no tienes cuenta registrate <a routerLink="/registrarse">aquí.</a></p>
+            </form>  
         </div>
-        <div>
-            <h1>Registrate</h1>
-            <form action="" class="formuRegist">
-                <label for="nombre">Nombre:</label><br/>
-                <input type='text' id='nombre' name='nombre' required/>
-                <br/><br/>
-
-                <label for="apellidos">Apellidos:</label><br/>
-                <input type='text' id='apellidos' name='apellidos' required/>
-                <br/><br/>
-
-                <label for="correo">Correo electrónico:</label><br/>
-                <input type='email' id='correo' name='correo' required/>
-                <br/><br/>
-
-                <label for="contrasenya">Contraseña:</label><br/>
-                <input type='password' id='contrasenya' name='contrasenya' required/>
-                <br/><br/>
-
-                <input type='submit' value="Registrarse"/>
-            </form>
-        </div>
+        <router-outlet></router-outlet>
     </div>
 }
 
-<!-- <router-outlet /> -->
+
