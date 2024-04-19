@@ -60,7 +60,7 @@ function loginUsuario(req, res){
     let contrasenya=params.contrasenya;
 
     //Consulta en la bbdd 
-    Usuario.findOne({email: email.toLowerCase()}).then((user)=>{
+    Usuario.findOne({email: email}).then((user)=>{
         
         if(user){
             // Comprobar la contraeña 

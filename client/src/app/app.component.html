@@ -1,0 +1,58 @@
+@if(identificacion){
+    <div>
+        <h1>{{title}}</h1>
+        <p>Estas logueado en la aplicacion</p>
+    </div>
+}
+
+@if(identificacion){
+    <div>
+        <p>Estas logueado en la aplicacion</p>
+    </div>
+}
+
+@if(!identificacion){
+    <div class="formularios">
+        <div>
+            <h1>Identificate</h1>
+            @if(errorMessage){
+                <div>
+                    <strong>Error </strong>{{errorMessage}}
+                </div>
+            }
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="formuIdent">
+                <label for="usuario">Correo electrónico:</label><br/>
+                <input type='email' #email="ngModel" name='correo' [(ngModel)]="usuario.email" required/>
+                <br/><br/>
+                <label for="contrasenya">Contraseña:</label><br/>
+                <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required/>
+                <br/><br/>
+                <input type='submit' value="Entrar"/>
+            </form>
+        </div>
+        <div>
+            <h1>Registrate</h1>
+            <form action="" class="formuRegist">
+                <label for="nombre">Nombre:</label><br/>
+                <input type='text' id='nombre' name='nombre' required/>
+                <br/><br/>
+
+                <label for="apellidos">Apellidos:</label><br/>
+                <input type='text' id='apellidos' name='apellidos' required/>
+                <br/><br/>
+
+                <label for="correo">Correo electrónico:</label><br/>
+                <input type='email' id='correo' name='correo' required/>
+                <br/><br/>
+
+                <label for="contrasenya">Contraseña:</label><br/>
+                <input type='password' id='contrasenya' name='contrasenya' required/>
+                <br/><br/>
+
+                <input type='submit' value="Registrarse"/>
+            </form>
+        </div>
+    </div>
+}
+
+<!-- <router-outlet /> -->
