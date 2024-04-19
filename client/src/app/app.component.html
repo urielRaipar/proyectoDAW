@@ -1,7 +1,9 @@
 @if(identificacion){
     <div>
         <h1>{{title}}</h1>
-        <p>Estas logueado en la aplicacion</p>
+        <span>{{identificacion.nombre}} {{identificacion.apellidos}}</span>
+        <br>
+        <button (click)="logout()">Cerrar sesión</button>
     </div>
 }
 

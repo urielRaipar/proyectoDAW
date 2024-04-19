@@ -31,10 +31,16 @@ export class AppComponent implements OnInit {
     this.usuario = new Usuario('', '', '', '', '', 'ROLE_USER', '');
   }
 
+  // Inicializar variables
   ngOnInit() {
+    this.identificacion=JSON.parse(this._usuarioServicio.getIdentity());
+    this.token=this._usuarioServicio.getToken();
 
+    console.log(this.identificacion)
+    console.log(this.token)
   }
 
+  // Logearse
   public onSubmit() {
     console.log(this.usuario)
 
@@ -47,6 +53,8 @@ export class AppComponent implements OnInit {
         alert("El usuario no está correctamente identificado");
       } else {
         // Crear elemento en el localstorage para tener al usuario en sesion
+        localStorage.setItem('identity',JSON.stringify(this.identificacion));
+
 
           // Conseguir el token para enviarselo a cada peticion http
           this._usuarioServicio.signup(this.usuario,'true').subscribe((response: any) => {
@@ -57,7 +65,7 @@ export class AppComponent implements OnInit {
               alert("El token no se ha generado correctamente");
             } else {
               // Crear elemento en el localstorage para tener el token disponible
-
+              localStorage.setItem('token',this.token);
               console.log(this.token);
               console.log(this.identificacion)
             }
@@ -78,5 +86,17 @@ export class AppComponent implements OnInit {
           this.errorMessage = error.error.message;
         }
       });
+  }
+
+  // Cerrar sesion(borrar sesion)
+  logout(){
+    localStorage.removeItem('identity');
+    localStorage.removeItem('token');
+
+    // Eliminacion global
+    localStorage.clear();
+
+    this.identificacion=null;
+    this.token=null;
   }
 }
