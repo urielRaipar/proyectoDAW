@@ -3,6 +3,7 @@ import { HttpClient,HttpResponse,HttpHeaders } from "@angular/common/http";
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
 import { GLOBAL } from "./global";
+import { Usuario } from "../models/usuario";
 
 
 @Injectable()
@@ -50,5 +51,24 @@ export class UsuarioServicio{
         }
 
         return this.token;  
+    }
+
+    // Registrar usuario
+    registrer(usuario_r:any){
+        let params=JSON.stringify(usuario_r);
+        let headers= new HttpHeaders({'Content-Type':'application/json'});
+    
+        return this._http.post(this.url+'registro',params,{headers:headers}).pipe(map(res=>res));
+    }
+  
+    // Actualizar usuario
+    update_user(user_update:any){
+        let params=JSON.stringify(user_update);
+        let headers= new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':this.getToken()
+        });
+    
+        return this._http.put(this.url+'update-user/'+user_update._id,params,{headers:headers}).pipe(map(res=>res));
     }
 }

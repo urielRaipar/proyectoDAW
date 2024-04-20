@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UsuarioServicio } from './service/usuario.servicio';
 import { RegistroComponent } from './components/registro/registro.component';
-
+import { ActualizarUsuarioComponent } from './components/actualizar-usuario/actualizar-usuario.component';
 
 
 @Component({
@@ -16,7 +16,8 @@ import { RegistroComponent } from './components/registro/registro.component';
     FormsModule,
     HttpClientModule,
     RegistroComponent,
-    RouterLink
+    RouterLink,
+    ActualizarUsuarioComponent
   ],
   providers: [UsuarioServicio],
   templateUrl: './app.component.html',
