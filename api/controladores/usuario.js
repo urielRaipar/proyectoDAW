@@ -94,6 +94,10 @@ function updateUser(req,res){
     let userId=req.params.id;
     let update=req.body;
 
+    if(userId!=req.user.sub){
+       return res.status(500),send({message:'No tienes permiso para actualizar este usuario'});
+    }
+
     Usuario.findByIdAndUpdate(userId, update).then((userUpdated)=>{
         if(!userUpdated){
             res.status(404).send({message:'No se ha podidio actualizar el usuario'});
@@ -112,8 +116,8 @@ function uploadImage(req,res){
     let file_name='Imagen no subida...';
 
     if(req.files){
-         // Puede que en un futuro haya que sustituir req.files.imagen.path
-        let file_path=req.files.image.path;
+         // Puede que en un futuro haya que sustituir req.files.image.path <--RESUELTO
+        let file_path=req.files.imagen.path;
         let file_split=file_path.split('\\');
         let file_name= file_split[2];
 

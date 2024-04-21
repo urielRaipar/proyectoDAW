@@ -62,7 +62,7 @@ export class UsuarioServicio{
     }
   
     // Actualizar usuario
-    update_user(user_update:any){
+    updateUser(user_update:any){
         let params=JSON.stringify(user_update);
         let headers= new HttpHeaders({
             'Content-Type':'application/json',

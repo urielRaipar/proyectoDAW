@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { UsuarioServicio } from './service/usuario.servicio';
 import { RegistroComponent } from './components/registro/registro.component';
 import { ActualizarUsuarioComponent } from './components/actualizar-usuario/actualizar-usuario.component';
+import { GLOBAL } from './service/global';
+
 
 
 @Component({
@@ -30,11 +32,13 @@ export class AppComponent implements OnInit {
   public identificacion: any;
   public token: any;
   public errorMessage: any;
+  public url:any;
 
   constructor(
     private _usuarioServicio: UsuarioServicio
   ) {
     this.usuario = new Usuario('', '', '', '', '', 'ROLE_USER', '');
+    this.url=GLOBAL.url;
   }
 
   // Inicializar variables

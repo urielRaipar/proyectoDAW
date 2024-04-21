@@ -1,9 +1,24 @@
 @if(identificacion){
     <div>
         <h1>{{title}}</h1>
-        <span>{{identificacion.nombre}} {{identificacion.apellidos}}</span>
-        <br>
-        <button (click)="logout()">Cerrar sesión</button>
+        <nav id="navigation">
+           
+        </nav>
+        <nav id="user_navigation">
+            <!-- Imagen usuario -->
+            <div>
+                <img id="imagen_usuario" src="{{url + '/get-image-user/' + identificacion.imagen}}" style="width: 10rem;">
+            </div>
+            <!-- Nombre usuario -->
+            <span id="nombre_usuario">{{identificacion.nombre}}</span>
+            <br>
+            <!-- Enlaces a contenido -->
+            <a href="#">Mis datos</a><br>
+            <a href="#">Artistas</a><br>
+            <a href="#">Albums</a><br>
+            <!-- Cerrar sesion -->
+            <button (click)="logout()">Cerrar sesión</button>
+        </nav>
     </div>
 }
 

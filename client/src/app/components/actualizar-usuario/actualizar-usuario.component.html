@@ -1,4 +1,37 @@
 <div>
     <h1>{{titulo}}</h1>
+    @if(alertUpdate){
+        <div>
+            {{alertUpdate}}
+        </div>
+    }
     <!-- Formulario -->
+    <form #userUpdateForm="ngForm" (ngSubmit)="onSubmit()" class="formuUpdate">
+        <label for="nombre">Nombre:</label><br/>
+        <input type='text' #nombre="ngModel" name='nombre' [(ngModel)]="usuario.nombre" required/>
+        <br/><br/>
+
+        <label for="apellidos">Apellidos:</label><br/>
+        <input type='text' #apellidos="ngModel" name='apellidos' [(ngModel)]="usuario.apellidos" required/>
+        <br/><br/>
+
+        <label for="correo">Correo electrónico:</label><br/>
+        <input type='email' #email="ngModel" name='email' [(ngModel)]="usuario.email" required/>
+        <br/>
+
+        <!-- <label for="contrasenya">Contraseña:</label><br/>
+        <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required/>
+        <br/><br/> -->
+
+        <!-- Futuro campo de subir fichero -->
+        @if(usuario.imagen && usuario.imagen!=null){
+            <div>
+                <img src="{{url + '/get-image-user/' + usuario.imagen}}" style="width: 10rem;">
+            </div>
+        }
+        <label for="foto_usuario">Sube tu foto: </label><br>
+        <input type="file" id="foto_usuario" placeholder="Subir imagen..." (change)="fileChangeEvent($event)"><br><br><br>
+
+        <input type='submit'  value="Actualizar mis datos"/>
+    </form>
 </div>
