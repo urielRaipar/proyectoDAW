@@ -1,0 +1,10 @@
+<div>
+    <h1>¡Bienvenido!</h1>
+    <h1>{{titulo}}</h1>
+    
+    @if(identificacion && identificacion.rol=='ROLE_ADMIN'){
+        <button [routerLink]="['/anyadirArtista']" [routerLinkActive]="['actived']">Crear artista</button><br><br>
+    }
+
+    
+</div>

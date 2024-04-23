@@ -1,0 +1,21 @@
+<h1>{{titulo}}</h1>
+@if(alertMessage){
+    <div>{{alertMessage}}</div>
+}
+<form #formArtista="ngForm" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre</label><br>
+    <input type="text" id="nombre" #nombre="ngModel" name="nombe" [(ngModel)]="artista.nombre" required><br><br>
+    <label for="descripcion">Descripción</label><br>
+    <textarea #descripcion="ngModel" [(ngModel)]="artista.descripcion" name="descripcion" id="descripcion" required></textarea><br><br>
+
+    @if(is_edit && artista.imagen!=null){
+        <div>
+            <img src="{{url+'/get-image-artist/'+artista.imagen}}">
+        </div><br><br>
+
+        <label for="">Sube la imagen del artista</label><br>
+        <input type="file" placeholder="Subir imagen..." (change)="fileChangeEvent($event)">
+    }
+    <input type="submit" value="Crear nuevo artista"> 
+</form>
+

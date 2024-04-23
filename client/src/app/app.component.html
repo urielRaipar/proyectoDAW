@@ -13,9 +13,9 @@
             <span id="nombre_usuario">{{identificacion.nombre}}</span>
             <br>
             <!-- Enlaces a contenido -->
-            <a href="#">Mis datos</a><br>
-            <a href="#">Artistas</a><br>
-            <a href="#">Albums</a><br>
+            <a [routerLink]="['/misDatos']" [routerLinkActive]="['actived']">Mis datos</a><br>
+            <a [routerLink]="['/artists',1]" [routerLinkActive]="['actived']">Artistas</a><br>
+            <a [routerLinkActive]="['actived']">Albums</a><br><br>
             <!-- Cerrar sesion -->
             <button (click)="logout()">Cerrar sesión</button>
         </nav>
@@ -24,8 +24,7 @@
 
 @if(identificacion){
     <div>
-        <p>Estas logueado en la aplicacion</p>
-        <app-actualizar-usuario/>
+        <router-outlet></router-outlet>
     </div>
 }
 
@@ -46,11 +45,12 @@
                 <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required/>
                 <br/><br/>
                 <input type='submit' value="Entrar"/>
-                <p>Si no tienes cuenta registrate <a routerLink="/registrarse">aquí.</a></p>
             </form>  
         </div>
-        <router-outlet></router-outlet>
+        <app-registro/>
     </div>
 }
+
+
 
 

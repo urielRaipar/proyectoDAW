@@ -4,6 +4,7 @@ import { Usuario } from '../../models/usuario';
 import { FormsModule } from '@angular/forms';
 import { GLOBAL } from '../../service/global';
 
+
 @Component({
   selector: 'app-actualizar-usuario',
   standalone: true,

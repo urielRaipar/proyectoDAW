@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet,RouterLink } from '@angular/router';
+import { RouterOutlet,RouterLink,RouterLinkActive, RouterModule } from '@angular/router';
 import { Usuario } from './models/usuario';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,6 +7,8 @@ import { UsuarioServicio } from './service/usuario.servicio';
 import { RegistroComponent } from './components/registro/registro.component';
 import { ActualizarUsuarioComponent } from './components/actualizar-usuario/actualizar-usuario.component';
 import { GLOBAL } from './service/global';
+import { ListaArtistasComponent } from './components/lista-artistas/lista-artistas.component';
+import { AnyadirArtistaComponent } from './components/anyadir-artista/anyadir-artista.component';
 
 
 
@@ -19,7 +21,11 @@ import { GLOBAL } from './service/global';
     HttpClientModule,
     RegistroComponent,
     RouterLink,
-    ActualizarUsuarioComponent
+    ActualizarUsuarioComponent,
+    ListaArtistasComponent,
+    RouterLinkActive,
+    RouterModule,
+    AnyadirArtistaComponent
   ],
   providers: [UsuarioServicio],
   templateUrl: './app.component.html',
@@ -108,8 +114,5 @@ export class AppComponent implements OnInit {
 
     this.identificacion=null;
     this.token=null;
-
-    location.href = 'http://localhost:4200/';
-
   }
 }

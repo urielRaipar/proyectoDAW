@@ -8,6 +8,10 @@
     background-color: pink;
     padding: 4rem 4rem;
   }
+
+  .actived{
+    border-bottom: 4px solid green;
+  }
   
   
 
