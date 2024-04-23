@@ -34,7 +34,7 @@ export class AnyadirArtistaComponent implements OnInit{
     private _userService:UsuarioServicio,
     private _artistaServicio:ArtistaServicio
   ){
-    this.titulo='Artista';
+    this.titulo='Añadir artista';
     this.identificacion=JSON.parse(this._userService.getIdentity());
     this.token=this._userService.getToken();
     this.url=GLOBAL.url;
@@ -49,14 +49,14 @@ export class AnyadirArtistaComponent implements OnInit{
   onSubmit(){
     console.log(this.artista)
     this._artistaServicio.addArtist(this.token,this.artista).subscribe(
-      (response)=>{
+      (response:any)=>{
        
-        if(!response){
+        if(!response.artist){
           this.alertMessage='Error en el servidor';
         }else{
           this.alertMessage='El artista se ha creado correctamente';
-          console.log(response)
-          // this._router.navigate(['/editar-artista'],response.artista.id)
+          console.log(response.artist)
+          this._router.navigate(['/editarArtista',response.artist._id]);
         }
       },
       (error)=>{

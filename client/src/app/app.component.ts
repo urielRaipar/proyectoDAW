@@ -9,7 +9,7 @@ import { ActualizarUsuarioComponent } from './components/actualizar-usuario/actu
 import { GLOBAL } from './service/global';
 import { ListaArtistasComponent } from './components/lista-artistas/lista-artistas.component';
 import { AnyadirArtistaComponent } from './components/anyadir-artista/anyadir-artista.component';
-
+import { ActualizarArtistaComponent } from './components/actualizar-artista/actualizar-artista.component';
 
 
 @Component({
@@ -25,7 +25,8 @@ import { AnyadirArtistaComponent } from './components/anyadir-artista/anyadir-ar
     ListaArtistasComponent,
     RouterLinkActive,
     RouterModule,
-    AnyadirArtistaComponent
+    AnyadirArtistaComponent,
+    ActualizarArtistaComponent
   ],
   providers: [UsuarioServicio],
   templateUrl: './app.component.html',

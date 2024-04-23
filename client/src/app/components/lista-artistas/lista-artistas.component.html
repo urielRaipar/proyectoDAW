@@ -2,9 +2,42 @@
     <h1>¡Bienvenido!</h1>
     <h1>{{titulo}}</h1>
     
+    <!-- Boton crear artista -->
     @if(identificacion && identificacion.rol=='ROLE_ADMIN'){
         <button [routerLink]="['/anyadirArtista']" [routerLinkActive]="['actived']">Crear artista</button><br><br>
     }
 
-    
+    <ul class="botonesLista">
+        <li><button [routerLink]="['/artists',prev_page]">&laquo;</button></li>
+        <li><button [routerLink]="['/artists',next_page]">&raquo;</button></li>
+    </ul>
 </div>
+
+
+<!-- Lista de artistas-->
+<div>
+    @if(identificacion){
+        <ul class="listaArtistas">
+            @for(artista of artistas; track artista._id){
+                <li>
+                    <div>
+                        <img src="{{url + 'get-image-artist/' + artista.imagen}}" style="width: 10rem;">
+                    </div>
+                    <div>
+                        <a href="#">
+                            {{artista.nombre}}
+                        </a>
+                        @if(identificacion.rol=='ROLE_ADMIN'){
+                            <div class="botonera">
+                                <button [routerLink]="['/editarArtista',artista._id]">Editar</button>
+                                <button>Borrar</button>
+                            </div>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+

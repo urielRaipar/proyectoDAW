@@ -1,0 +1,27 @@
+@if(identificacion && identificacion.rol=='ROLE_ADMIN'){
+<h1>{{titulo}}</h1>
+@if(alertMessage){
+    <div>{{alertMessage}}</div>
+}
+<form #formArtista="ngForm" (ngSubmit)="onSubmit()">
+    <label for="nombre">Nombre</label><br>
+    <input type="text" id="nombre" #nombre="ngModel" name="nombe" [(ngModel)]="artista.nombre" required><br><br>
+    <label for="descripcion">Descripción</label><br>
+    <textarea #descripcion="ngModel" [(ngModel)]="artista.descripcion" name="descripcion" id="descripcion" required></textarea><br><br>
+
+    @if(artista.imagen && artista.imagen!=null){
+        <div>
+            <img src="{{url+'get-image-artist/'+artista.imagen}}" style="width: 10rem;">
+        </div><br><br>
+    }
+
+    <label for="subirImagen">Subir imagen artista</label><br>
+    <input type="file" id="subirImagen" placeholder="Selecciona imagen..." (change)="fileChangeEvent($event)"><br><br>
+
+    <input type="submit" value="Actualizar artista"> 
+</form>
+}@else{
+    <h1>Error</h1>
+    <p>No tienes acceso a esta parte de la aplicación</p>
+}
+

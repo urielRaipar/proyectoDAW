@@ -1,0 +1,13 @@
+.listaArtistas{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.botonera{
+    display: flex;
+    justify-content: space-evenly;
+}

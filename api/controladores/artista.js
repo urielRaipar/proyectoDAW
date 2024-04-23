@@ -30,7 +30,7 @@ function getArtists(req,res){
     }else{
         var page=1;
     }
-    let itemsPerPage=3;
+    let itemsPerPage=4;
 
     Artista.find().sort('nombre').paginate(page, itemsPerPage).then((artist,total)=>{
         if(!artist){
