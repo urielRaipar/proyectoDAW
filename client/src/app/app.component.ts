@@ -3,13 +3,21 @@ import { RouterOutlet,RouterLink,RouterLinkActive, RouterModule } from '@angular
 import { Usuario } from './models/usuario';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// Importaciones usuario
 import { UsuarioServicio } from './service/usuario.servicio';
 import { RegistroComponent } from './components/registro/registro.component';
 import { ActualizarUsuarioComponent } from './components/actualizar-usuario/actualizar-usuario.component';
+// Importacion conexion api
 import { GLOBAL } from './service/global';
+// Importaciones artista
 import { ListaArtistasComponent } from './components/lista-artistas/lista-artistas.component';
 import { AnyadirArtistaComponent } from './components/anyadir-artista/anyadir-artista.component';
 import { ActualizarArtistaComponent } from './components/actualizar-artista/actualizar-artista.component';
+import { ArtistaDetalleComponent } from './components/artista-detalle/artista-detalle.component';
+// Importaciones album
+import { AnyadirAlbumComponent } from './components/anyadir-album/anyadir-album.component';
+import { ActualizarAlbumComponent } from './components/actualizar-album/actualizar-album.component';
+
 
 
 @Component({
@@ -26,9 +34,14 @@ import { ActualizarArtistaComponent } from './components/actualizar-artista/actu
     RouterLinkActive,
     RouterModule,
     AnyadirArtistaComponent,
-    ActualizarArtistaComponent
+    ActualizarArtistaComponent,
+    ArtistaDetalleComponent,
+    AnyadirAlbumComponent,
+    ActualizarAlbumComponent
   ],
-  providers: [UsuarioServicio],
+  providers: [
+    UsuarioServicio
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

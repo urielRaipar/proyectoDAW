@@ -1,0 +1,27 @@
+@if(artista){
+    <div>
+        <div>
+            <!-- Cabecera -->
+            <div>
+                @if(artista.imagen && artista.imagen!==null){
+                    <img src="{{url + 'get-image-artist/' + artista.imagen}}" style="width: 10rem;">
+                }
+            </div>
+            <div>
+                <h1>{{artista.nombre}}</h1>
+                <p>{{artista.descripcion}}</p>
+
+                @if(identificacion.rol=='ROLE_ADMIN'){
+                    <button [routerLink]="['/crearAlbum',artista._id]">Añadir album</button>
+                }
+            </div>
+        </div>
+        <br>
+        @if(albums){
+            <div>
+                <!-- Listar albums -->
+            </div>
+        }
+    </div>
+}
+

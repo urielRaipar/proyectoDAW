@@ -30,6 +30,7 @@ export class ListaArtistasComponent implements OnInit{
   public url;
   public next_page;
   public prev_page;
+  public confirmado:any;
 
   constructor(
     private _route:ActivatedRoute,
@@ -87,6 +88,37 @@ export class ListaArtistasComponent implements OnInit{
       }
     )
     });
+  }
+
+  // Metodo confirmar
+  onDeleteConfirm(id:any){
+    this.confirmado=id;
+  }
+
+  // Metodo cancelar
+  onCancelArtist(){
+    this.confirmado=null;
+  }
+
+  // Metodo eliminar
+  onDeleteArtist(id:any){
+    this._artistService.deleteArtista(this.token,id).subscribe(
+      (response:any)=>{
+        if(!response.artist){
+          alert('Error en el servidor');
+        }
+        this.getArtists();
+      },
+      (error)=>{
+        let errorMessage=<any>error;
+
+        if(errorMessage != null){
+          let body=JSON.parse(error._body);
+
+          console.log(error);
+        }
+      }
+    )
   }
 
 }

@@ -24,15 +24,29 @@
                         <img src="{{url + 'get-image-artist/' + artista.imagen}}" style="width: 10rem;">
                     </div>
                     <div>
-                        <a href="#">
+                        <!-- Detalle artista -->
+                        <a [routerLink]="['/artista',artista._id]">
                             {{artista.nombre}}
                         </a>
+                        <!-- Borrar artista -->
                         @if(identificacion.rol=='ROLE_ADMIN'){
                             <div class="botonera">
                                 <button [routerLink]="['/editarArtista',artista._id]">Editar</button>
-                                <button>Borrar</button>
+                                <button (click)="onDeleteConfirm(artista._id)">Borrar</button>
                             </div>
                         }
+
+                        <!-- Confirmacion eliminacion -->
+                        @if(confirmado==artista._id){
+                            <div>
+                                <button (click)="onDeleteArtist(artista._id)">Eliminar</button>
+                                <button (click)="onCancelArtist()">Cancelar</button>
+                            </div>
+                        }
+
+                        <div>
+
+                        </div>
                     </div>
                 </li>
             }
