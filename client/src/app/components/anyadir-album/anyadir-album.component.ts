@@ -64,7 +64,7 @@ export class AnyadirAlbumComponent implements OnInit{
           }else{
             this.alertMessage='El album se ha creado correctamente';
             this.album=response.album;
-            // this._router.navigate(['/editarArtista',response.artist._id]);
+            this._router.navigate(['/editarAlbum',response.album._id]);
           }
         },
         (error)=>{

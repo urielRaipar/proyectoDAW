@@ -71,7 +71,7 @@ export class ListaArtistasComponent implements OnInit{
 
       this._artistService.getArtistas(this.token,page).subscribe((response:any)=>{
           if(!response.artists){
-            this._router.navigate(['']);
+            this._router.navigate(['/']);
           }else{
             this.artistas=response.artists;
           }

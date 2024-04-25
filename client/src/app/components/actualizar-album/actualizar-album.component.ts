@@ -6,6 +6,7 @@ import { Artista } from '../../models/artista';
 import { FormsModule } from '@angular/forms';
 import { Album } from '../../models/album';
 import { AlbumServicio } from '../../service/album.servicio';
+import { UploadServicio } from '../../service/upload.servicio';
 
 
 @Component({
@@ -16,7 +17,8 @@ import { AlbumServicio } from '../../service/album.servicio';
   ],
   providers: [
     UsuarioServicio,
-    AlbumServicio
+    AlbumServicio,
+    UploadServicio
   ],
   templateUrl: './actualizar-album.component.html',
   styleUrl: './actualizar-album.component.css'
@@ -29,12 +31,14 @@ export class ActualizarAlbumComponent implements OnInit{
   public token;
   public url;
   public alertMessage:any;
+  public filesToUpload:any;
 
   constructor(
     private _route:ActivatedRoute,
     private _router:Router,
     private _userService:UsuarioServicio,
-    private _albumService:AlbumServicio
+    private _albumService:AlbumServicio,
+    private _uploadService:UploadServicio
   ){
     this.title='Actualizar album';
     this.identificacion=JSON.parse(this._userService.getIdentity());
@@ -46,14 +50,76 @@ export class ActualizarAlbumComponent implements OnInit{
 
   ngOnInit() {
       console.log('Actualizar album: cargado');
+
+      // Conseguir el album
+       this.getAlbum();
   }
 
+  // Mostrar album
+  getAlbum(){
+    this._route.params.forEach((params:Params)=>{
+      let id=params['id'];
+
+      this._albumService.getAlbum(this.token, id).subscribe(
+        (response:any)=>{
+            if(!response.album){
+              this._router.navigate(['/']);
+            }else{
+              this.alertMessage='El album se ha creado correctamente';
+              this.album=response.album;
+            }
+        },
+        (error)=>{
+          let errorMessage=<any>error;
+
+          if(errorMessage!=null){
+            let body=JSON.parse(error._body)
+            // this.alertMessage=body.message;
+          }
+        }
+      );
+    });
+  }
+
+
+  // Enviar formulario
   onSubmit(){
-    
+    this._route.params.forEach((params:Params)=>{
+      let id=params['id'];
+
+      this._albumService.editAlbum(this.token,id,this.album).subscribe(
+        (response:any)=>{
+            if(!response.album){
+              this.alertMessage='Error en el servidor';
+            }else{
+              this.alertMessage='El album se ha actualizado correctamente';
+
+              // Subir la imagen del album
+              this._uploadService.makeFileRequest(this.url+'upload-image-album/'+id,[],this.filesToUpload,this.token,'imagen')
+              .then(
+                (result)=>{
+                  this._router.navigate(['/artista',this.album.artista]);
+                },
+                (error:any)=>{
+                  console.log(error)
+                }
+              )
+            }
+        },
+        (error)=>{
+          let errorMessage=<any>error;
+
+          if(errorMessage!=null){
+            let body=JSON.parse(error._body);
+
+            console.log(error);
+          }
+        }
+      );
+    });
   }
 
-
-  fileChangeEvent(ev:any){
-
+  fileChangeEvent(fileInput:any){
+    this.filesToUpload=<Array<File>>fileInput.target.files;
   }
 }
