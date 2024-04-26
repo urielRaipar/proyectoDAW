@@ -102,14 +102,37 @@ export class ArtistaDetalleComponent implements OnInit{
   }
 
 
+  // Confirmar eliminacion
   onDeleteConfirm(id:any){
-
+    this.confirmado=id;
   }
+
+  // Eliminar
   onDeleteAlbum(id:any){
+    this._albumService.deleteAlbum(this.token,id).subscribe(
+      (response:any)=>{
+        if (!response.album) {
+          alert('Error en el servidor');
+        }
 
+        this.getArtists();
+      },
+      (error)=>{
+        let errorMessage=<any>error;
+
+        if(errorMessage != null){
+          let body=JSON.parse(error.body);
+          this.alertMessage=body.message;
+
+          console.log(error)
+        }  
+      }
+    )
   }
+
+  // Cancelar eliminacion
   onCancelAlbum(){
-    
+   this.confirmado=null;
   }
 
 }

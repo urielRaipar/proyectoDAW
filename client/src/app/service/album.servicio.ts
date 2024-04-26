@@ -62,4 +62,14 @@ export class AlbumServicio{
 
         return this._http.put(this.url+'album/'+id,params,{headers:headers}).pipe(map(res=>res));
     }
+
+    // Eliminar album 
+    deleteAlbum(token:any,id:string){
+        let headers=new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':token
+        });
+
+        return this._http.delete(this.url+'album/'+id,{headers:headers}).pipe(map(res=>res));
+    }
 }

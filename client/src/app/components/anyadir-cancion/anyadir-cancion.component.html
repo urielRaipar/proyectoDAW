@@ -1,0 +1,9 @@
+@if(identificacion && identificacion.rol=='ROLE_ADMIN'){
+    <h1>{{title}}</h1>
+    @if(alertMessage){
+        <div>{{alertMessage}}</div>
+    }
+}@else{
+    <h1>Error</h1>
+    <p>No tienes acceso a esta parte de la aplicación</p>
+}    

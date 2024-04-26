@@ -80,29 +80,6 @@ export class AnyadirAlbumComponent implements OnInit{
       )
     });
   
-   
-    // this._artistaServicio.addArtist(this.token,this.artista).subscribe(
-    //   (response:any)=>{
-       
-    //     if(!response.artist){
-    //       this.alertMessage='Error en el servidor';
-    //     }else{
-    //       this.alertMessage='El artista se ha creado correctamente';
-    //       console.log(response.artist)
-    //       this._router.navigate(['/editarArtista',response.artist._id]);
-    //     }
-    //   },
-    //   (error)=>{
-    //     let errorMessage=<any>error;
-
-    //     if(errorMessage != null){
-    //       let body=JSON.parse(error.body);
-    //       this.alertMessage=body.message;
-
-    //       console.log(error)
-    //     }
-    //   }
-    // );
   }
 
 }

@@ -1,0 +1,18 @@
+@if(album){
+    <div>
+        <div>
+            @if(album.imagen && album.imagen!==null){
+                <img src="{{url+'get-image-album/'+album.imagen}}" style="width: 10rem;">
+            }
+        </div>
+        <div>
+            <h1>{{album.titulo}}</h1>
+            <p>{{album.anyo}}</p>
+            <p>{{album.descripcion}}</p>
+
+            @if(identificacion.rol=='ROLE_ADMIN'){
+                <button [routerLink]="['/anyadirCancion',album._id]">Añadir cancion</button>
+            }
+        </div>
+    </div>
+}

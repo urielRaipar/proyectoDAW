@@ -10,19 +10,24 @@ import { ArtistaDetalleComponent } from './components/artista-detalle/artista-de
 // Importaciones album
 import { AnyadirAlbumComponent } from './components/anyadir-album/anyadir-album.component';
 import { ActualizarAlbumComponent } from './components/actualizar-album/actualizar-album.component';
-
+import { AlbumDetalleComponent } from './components/album-detalle/album-detalle.component';
+// Importaciones canciones
+import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
 
 
 export const routes: Routes = [
+    // Ruta general
     {
         path:'',
         redirectTo:'artists/1',
         pathMatch:'full'
     },
+    // Rutas usuarios
     {
         path: 'misDatos',
         component: ActualizarUsuarioComponent
     },
+    // Rutas artista
     {
         path:'editarArtista/:id',
         component: ActualizarArtistaComponent
@@ -39,6 +44,7 @@ export const routes: Routes = [
         path:'artista/:id',
         component:ArtistaDetalleComponent
     },
+    // Rutas albunes
     {
         path:'crearAlbum/:artista',
         component:AnyadirAlbumComponent
@@ -47,6 +53,16 @@ export const routes: Routes = [
         path:'actualizarAlbum/:id',
         component:ActualizarAlbumComponent
     },
+    {
+        path:'album/:id',
+        component:AlbumDetalleComponent
+    },
+    // Rutas cancion
+    {
+        path:'anyadirCancion/:album',
+        component:AnyadirCancionComponent
+    },
+    // Rutas por defecto
     {
         path:'',
         component: ListaArtistasComponent

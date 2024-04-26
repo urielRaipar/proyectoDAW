@@ -17,6 +17,9 @@ import { ArtistaDetalleComponent } from './components/artista-detalle/artista-de
 // Importaciones album
 import { AnyadirAlbumComponent } from './components/anyadir-album/anyadir-album.component';
 import { ActualizarAlbumComponent } from './components/actualizar-album/actualizar-album.component';
+import { AlbumDetalleComponent } from './components/album-detalle/album-detalle.component';
+// Importaciones canciones
+import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
 
 
 
@@ -37,7 +40,9 @@ import { ActualizarAlbumComponent } from './components/actualizar-album/actualiz
     ActualizarArtistaComponent,
     ArtistaDetalleComponent,
     AnyadirAlbumComponent,
-    ActualizarAlbumComponent
+    ActualizarAlbumComponent,
+    AlbumDetalleComponent,
+    AnyadirCancionComponent
   ],
   providers: [
     UsuarioServicio
