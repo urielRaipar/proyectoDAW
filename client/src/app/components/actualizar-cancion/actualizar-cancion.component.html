@@ -1,0 +1,33 @@
+@if(identificacion && identificacion.rol=='ROLE_ADMIN'){
+    <h1>{{title}}</h1>
+    @if(alertMessage){
+        <div>{{alertMessage}}</div>
+    }
+
+    <form #formSong="ngForm" (ngSubmit)="onSubmit()">
+        <label for="numero">Numero</label><br>
+        <input type="number" id="numero" #numero="ngModel" name="numero" [(ngModel)]="cancion.numero" required/><br><br>
+        <label for="titulo">Titulo</label><br>
+        <input type="text" id="titulo" #nombre="ngModel" name="nombre" [(ngModel)]="cancion.nombre" required/><br><br>
+        <label for="duracion">Duración</label><br>
+        <input type="text" #duracion="ngModel" [(ngModel)]="cancion.duracion" name="duracion" id="duracion" required/><br><br>
+
+        @if(cancion.ficheroMP3 && cancion.ficheroMP3!=null){
+            <audio controls>
+                <source src="{{url+'get-fichero-audio/'+cancion.ficheroMP3}}" type="audio/mpeg">
+              El navegador web no soporta la reproducción de audio
+            </audio><br><br>
+        }
+     
+        <label for="audio_cancion">Sube el fichero de audio: </label><br>
+        <input type="file" id="audio_cancion" placeholder="Subir audio..." (change)="fileChangeEvent($event)"><br><br><br>
+
+
+
+        <input type="submit" value="Actualizar canción"> 
+
+    </form>
+}@else{
+    <h1>Error</h1>
+    <p>No tienes acceso a esta parte de la aplicación</p>
+} 

@@ -25,7 +25,7 @@ import { AlbumServicio } from '../../service/album.servicio';
 })
 export class AnyadirAlbumComponent implements OnInit{
   public title:any;
-  // public artista:Artista;
+  // public artista:any;
   public album:Album;
   public identificacion;
   public token;
@@ -47,7 +47,7 @@ export class AnyadirAlbumComponent implements OnInit{
   }
 
   ngOnInit() {
-    console.log('Añadir album componente: cargado');
+    console.log('Añadir album componente: cargado'); 
   }
 
 // Insertar album
@@ -64,7 +64,7 @@ export class AnyadirAlbumComponent implements OnInit{
           }else{
             this.alertMessage='El album se ha creado correctamente';
             this.album=response.album;
-            this._router.navigate(['/editarAlbum',response.album._id]);
+            this._router.navigate(['/actualizarAlbum',response.album._id]);
           }
         },
         (error)=>{
@@ -82,4 +82,5 @@ export class AnyadirAlbumComponent implements OnInit{
   
   }
 
+  
 }

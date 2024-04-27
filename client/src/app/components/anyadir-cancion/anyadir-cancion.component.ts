@@ -3,19 +3,24 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UsuarioServicio } from '../../service/usuario.servicio';
 import { GLOBAL } from '../../service/global';
 import { Cancion } from '../../models/cancion';
+import { FormsModule } from '@angular/forms';
+import { CancionServicio } from '../../service/cancion.servicio';
 
 
 @Component({
   selector: 'app-anyadir-cancion',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   providers:[
-    UsuarioServicio
+    UsuarioServicio,
+    CancionServicio
   ],
   templateUrl: './anyadir-cancion.component.html',
   styleUrl: './anyadir-cancion.component.css'
 })
-export class AnyadirCancionComponent {
+export class AnyadirCancionComponent implements OnInit{
   public title:any;
   public cancion:Cancion;
   public identificacion;
@@ -27,12 +32,14 @@ export class AnyadirCancionComponent {
     private _route:ActivatedRoute,
     private _router:Router,
     private _userService:UsuarioServicio,
+    private _cancionService:CancionServicio
   ){
-    this.title='Añadir cancion';
+    this.title='Añadir canción';
     this.identificacion=JSON.parse(this._userService.getIdentity());
     this.token=this._userService.getToken();
     this.url=GLOBAL.url;
     this.cancion=new Cancion(1,'','','','');
+   
   }
 
   ngOnInit() {
@@ -41,33 +48,32 @@ export class AnyadirCancionComponent {
 
 // Insertar album
   onSubmit(){
-    // this._route.params.forEach((params:Params)=>{
-    //   let artist_id=params['artista'];
-    //   this.album.artista=artist_id
+    this._route.params.forEach((params:Params)=>{
+      let album_id=params['album'];
+      this.cancion.album=album_id;
 
-    //   this._albumService.addAlbum(this.token,this.album).subscribe(
-    //     (response:any)=>{
-       
-    //       if(!response.album){
-    //         this.alertMessage='Error en el servidor';
-    //       }else{
-    //         this.alertMessage='El album se ha creado correctamente';
-    //         this.album=response.album;
-    //         this._router.navigate(['/editarAlbum',response.album._id]);
-    //       }
-    //     },
-    //     (error)=>{
-    //       let errorMessage=<any>error;
+      this._cancionService.addCancion(this.token,this.cancion).subscribe(
+        (response:any)=>{
+          if(!response.song){
+            this.alertMessage='Error en el servidor';
+          }else{
+            this.alertMessage='La canción se ha creado correctamente';
+            this.cancion=response.song;
+            this._router.navigate(['/actualizarCancion',response.song._id]);
+          }
+        },
+        (error)=>{
+          let errorMessage=<any>error;
   
-    //       if(errorMessage != null){
-    //         let body=JSON.parse(error.body);
-    //         this.alertMessage=body.message;
+          if(errorMessage != null){
+            let body=JSON.parse(error.body);
+            this.alertMessage=body.message;
   
-    //         console.log(error)
-    //       }
-    //     }
-    //   )
-    // });
+            console.log(error)
+          }
+        }
+      )
+    });
   
   }
 

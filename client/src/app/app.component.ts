@@ -20,6 +20,7 @@ import { ActualizarAlbumComponent } from './components/actualizar-album/actualiz
 import { AlbumDetalleComponent } from './components/album-detalle/album-detalle.component';
 // Importaciones canciones
 import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
+import { ActualizarCancionComponent } from './components/actualizar-cancion/actualizar-cancion.component';
 
 
 
@@ -42,7 +43,8 @@ import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-ca
     AnyadirAlbumComponent,
     ActualizarAlbumComponent,
     AlbumDetalleComponent,
-    AnyadirCancionComponent
+    AnyadirCancionComponent,
+    ActualizarCancionComponent
   ],
   providers: [
     UsuarioServicio

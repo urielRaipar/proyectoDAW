@@ -13,6 +13,8 @@ import { ActualizarAlbumComponent } from './components/actualizar-album/actualiz
 import { AlbumDetalleComponent } from './components/album-detalle/album-detalle.component';
 // Importaciones canciones
 import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
+import { ActualizarCancionComponent } from './components/actualizar-cancion/actualizar-cancion.component';
+
 
 
 export const routes: Routes = [
@@ -61,6 +63,10 @@ export const routes: Routes = [
     {
         path:'anyadirCancion/:album',
         component:AnyadirCancionComponent
+    },
+    {   
+        path:'actualizarCancion/:id',
+        component:ActualizarCancionComponent
     },
     // Rutas por defecto
     {
