@@ -70,6 +70,31 @@ function getAlbums(req,res){
     })
 }
 
+
+// Mostrar todos los albums
+function getAlbumsP(req,res){
+    if(req.params.page){
+        var page=req.params.page;
+    }else{
+        var page=1;
+    }
+    let itemsPerPage=4;
+
+    Album.find().sort('nombre').paginate(page, itemsPerPage).then((album,total)=>{
+        if(!album){
+            res.status(404).send({message:'No hay albums'});
+        }else{
+            return res.status(200).send({
+                total_items:total,
+                albums:album
+            })
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message:'Error en la peticion'});
+    })
+}
+
 // Actualizar album
 function updateAlbum(req,res){
     let albumId=req.params.id;
@@ -170,5 +195,6 @@ module.exports={
     updateAlbum,
     deleteAlbum,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getAlbumsP
 }

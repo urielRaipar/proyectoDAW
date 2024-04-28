@@ -18,9 +18,11 @@ import { ArtistaDetalleComponent } from './components/artista-detalle/artista-de
 import { AnyadirAlbumComponent } from './components/anyadir-album/anyadir-album.component';
 import { ActualizarAlbumComponent } from './components/actualizar-album/actualizar-album.component';
 import { AlbumDetalleComponent } from './components/album-detalle/album-detalle.component';
+import { ListaAlbumsComponent } from './components/lista-albums/lista-albums.component';
 // Importaciones canciones
 import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
 import { ActualizarCancionComponent } from './components/actualizar-cancion/actualizar-cancion.component';
+
 
 
 
@@ -44,7 +46,8 @@ import { ActualizarCancionComponent } from './components/actualizar-cancion/actu
     ActualizarAlbumComponent,
     AlbumDetalleComponent,
     AnyadirCancionComponent,
-    ActualizarCancionComponent
+    ActualizarCancionComponent,
+    ListaAlbumsComponent
   ],
   providers: [
     UsuarioServicio

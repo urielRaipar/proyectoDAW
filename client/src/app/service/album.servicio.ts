@@ -40,6 +40,18 @@ export class AlbumServicio{
         }
     }
 
+
+     // Mostar los albunes por pagina
+     getAlbumsP(token:any,page:any){
+        let headers=new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':token
+        });
+        
+        
+        return this._http.get(this.url+'albumsP/'+page,{headers:headers}).pipe(map(res=>res));
+    }
+
     // Añadir albums
     addAlbum(token:any,album:Album){
         let params =JSON.stringify(album);
