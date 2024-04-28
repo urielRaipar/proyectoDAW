@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet,RouterLink,RouterLinkActive, RouterModule } from '@angular/router';
+import { RouterOutlet,RouterLink,RouterLinkActive, RouterModule,Router} from '@angular/router';
 import { Usuario } from './models/usuario';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,7 +22,8 @@ import { ListaAlbumsComponent } from './components/lista-albums/lista-albums.com
 // Importaciones canciones
 import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
 import { ActualizarCancionComponent } from './components/actualizar-cancion/actualizar-cancion.component';
-
+// Reproductor de musica
+import { ReproductorComponent } from './components/reproductor/reproductor.component';
 
 
 
@@ -47,7 +48,8 @@ import { ActualizarCancionComponent } from './components/actualizar-cancion/actu
     AlbumDetalleComponent,
     AnyadirCancionComponent,
     ActualizarCancionComponent,
-    ListaAlbumsComponent
+    ListaAlbumsComponent,
+    ReproductorComponent
   ],
   providers: [
     UsuarioServicio
@@ -65,7 +67,8 @@ export class AppComponent implements OnInit {
   public url:any;
 
   constructor(
-    private _usuarioServicio: UsuarioServicio
+    private _usuarioServicio: UsuarioServicio,
+    private _router:Router
   ) {
     this.usuario = new Usuario('', '', '', '', '', 'ROLE_USER', '');
     this.url=GLOBAL.url;
@@ -139,4 +142,5 @@ export class AppComponent implements OnInit {
     this.identificacion=null;
     this.token=null;
   }
+
 }

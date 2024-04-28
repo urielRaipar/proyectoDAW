@@ -21,7 +21,7 @@
                 <ul>
                     @for(cancion of canciones;track cancion._id){
                         <li>
-                            <button>Play</button>
+                            <button (click)="startPlayer(cancion)">Play</button>
                             {{cancion.numero+'. '+cancion.nombre+' - '+cancion.duracion}}
                             @if(identificacion.rol=='ROLE_ADMIN'){
                                 <div>

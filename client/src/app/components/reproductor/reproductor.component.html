@@ -1,0 +1,29 @@
+<div>
+    @if(cancion.album){
+        <span>
+            <h1>Sin defecto</h1>
+            <img id="play-image-album" src="{{url+'get-image-album/'+cancion.album.imagen}}" style="width: 10rem;">
+        </span>
+    }@else{
+        <span>
+            <img id="play-image-album" src="../../../assets/imagenes/defecto.jpg" style="width: 10rem;">
+        </span>
+    } 
+
+    <div>
+        <p>Reproduciendo</p>
+        <!-- Cancion sonando -->
+        <span id="cancion_sonando">
+            {{cancion.nombre}}
+        </span>
+       <!-- Artista -->
+        <span id="artista_sonando">
+            {{cancion.album.artista.nombre}}
+        </span><br>
+        <audio controls id="player">
+            <source src="{{url+'get-fichero-audio/'+cancion.ficheroMP3}}" type="audio/mpeg" id="mp3-source"/>
+            El navegador web no soporta la reproducción de audio
+        </audio>
+    </div>
+    
+</div>

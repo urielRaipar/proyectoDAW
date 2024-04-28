@@ -123,4 +123,35 @@ export class AlbumDetalleComponent implements OnInit{
   onCancelSong(){
     this.confirmado=null;
   }
+
+  // Boton del paly
+  startPlayer(cancion:any){
+    let cancion_player:any=JSON.stringify(cancion);
+    let file_path=this.url+'get-fichero-audio/'+cancion.ficheroMP3;
+    let image_path=this.url+'get-image-album/'+cancion.album.imagen;
+
+    localStorage.setItem('sound_song',cancion_player);
+
+    document.querySelector('#mp3-source')?.setAttribute('src',file_path);
+    (document.querySelector('#player')as any).load();
+    (document.querySelector('#player')as any).play();
+
+
+   
+    const cancion_sonandoElement = document.getElementById('cancion_sonando');
+    if (cancion_sonandoElement) {
+        cancion_sonandoElement.innerHTML = cancion.nombre;
+    }
+
+    
+    const artista_sonando = document.getElementById('artista_sonando');
+    if (artista_sonando) {
+      artista_sonando.innerHTML = cancion.album.artista.nombre;
+    }
+
+    const imagen_album = document.getElementById('play-image-album');
+    if (imagen_album) {
+      imagen_album.setAttribute('src',image_path);
+    }
+  }
 }
