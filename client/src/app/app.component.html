@@ -35,26 +35,37 @@
 
 @if(!identificacion){
     <div class="formularios">
-        <div>
-            <h1>Identificate</h1>
+        <div class="formuIdent">
+            <h1>Identificate</h1><br><br>
             @if(errorMessage){
-                <div>
-                    <strong>Error </strong>{{errorMessage}}
-                </div>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Error- </strong>{{errorMessage}}
+                </div>    
             }
-            <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="formuIdent">
-                <label for="usuario">Correo electrónico:</label><br/>
-                <input type='email' #email="ngModel" name='correo' [(ngModel)]="usuario.email" required/>
-                <br/><br/>
-                <label for="contrasenya">Contraseña:</label><br/>
-                <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required/>
-                <br/><br/>
-                <input type='submit' value="Entrar"/>
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="usuario" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="usuario" aria-describedby="emailHelp" #email="ngModel" name='correo' [(ngModel)]="usuario.email" required>
+                    <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="contrasenya" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasenya" #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required>
+                    <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Entrar</button>
             </form>  
         </div>
         <app-registro/>
     </div>
 }
+
+
+
+
+
+
+
 
 
 
