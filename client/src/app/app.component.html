@@ -1,39 +1,51 @@
 @if(identificacion){
-    <div>
-        <h1>{{title}}</h1>
-        <nav id="navigation">
-           
-        </nav>
-        <nav id="user_navigation">
-            <!-- Imagen usuario -->
-            <div>
-                <img id="imagen_usuario" src="{{url + '/get-image-user/' + identificacion.imagen}}" style="width: 10rem;">
+    <div class="cuerpoLogueado">
+        <div class="barraNavegacion">
+            <div class="h4 tituloPrincipal">
+                <a [routerLink]="['/']" id="enlacePrincipal">
+                    {{title}}
+                </a>
             </div>
-            <!-- Nombre usuario -->
-            <span id="nombre_usuario">{{identificacion.nombre}}</span>
-            <br>
-            <!-- Enlaces a contenido -->
-            <a [routerLink]="['/misDatos']" [routerLinkActive]="['actived']">Mis datos</a><br>
-            <a [routerLink]="['/artists',1]" [routerLinkActive]="['actived']">Artistas</a><br>
-            <a [routerLink]="['/albums',1]" [routerLinkActive]="['actived']">Albums</a><br><br>
-            <!-- Cerrar sesion -->
-            <button (click)="logout()">Cerrar sesión</button>
-        </nav>
-    </div>
-}
+            <!-- <nav id="navigation">
+            
+            </nav> -->
+            <nav id="user_navigation">
+                <!-- Enlaces a contenido -->
+                <a [routerLink]="['/artists',1]" [routerLinkActive]="['actived']">Artistas</a><br>
+                <a [routerLink]="['/albums',1]" [routerLinkActive]="['actived']">Albums</a><br><br>
 
-@if(identificacion){
-    <div>
-        <!-- Carga de elementos -->
-        <router-outlet></router-outlet>
-        <div>
-            <!-- Reproductor de musica -->
-            <app-reproductor></app-reproductor>
+                <!-- Imagen usuario -->
+                <div>
+                    <img id="imagen_usuario" src="{{url + '/get-image-user/' + identificacion.imagen}}" style="width: 10rem;">
+                </div>
+
+                <!-- Nombre usuario -->
+                <span id="nombre_usuario">{{identificacion.nombre}}</span>
+                <br>
+                <!-- Mis datos -->
+                <a [routerLink]="['/misDatos']" [routerLinkActive]="['actived']">Mis datos</a><br><br>
+                <!-- Cerrar sesion -->
+                <button (click)="logout()">Cerrar sesión</button>
+            </nav>
+        </div>
+    <!-- } -->
+
+    <!-- @if(identificacion){ -->
+        <div class="contenidoMutable">
+            <!-- Carga de elementos -->
+            <router-outlet></router-outlet>
+            <div>
+                <!-- Reproductor de musica -->
+                <app-reproductor></app-reproductor>
+            </div>
         </div>
     </div>
-}
-
+    }
+    
 @if(!identificacion){
+    <div class="titulo_inicio">
+        <h1>Spotysmall</h1>
+    </div>
     <div class="formularios">
         <div class="formuIdent">
             <h1>Identificate</h1><br><br>
@@ -45,7 +57,7 @@
             <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="usuario" aria-describedby="emailHelp" #email="ngModel" name='correo' [(ngModel)]="usuario.email" required>
+                    <input type="email" class="form-control" id="usuario" aria-describedby="emailHelp" #email="ngModel" name='email' [(ngModel)]="usuario.email" required>
                     <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
                   </div>
                   <div class="mb-3">

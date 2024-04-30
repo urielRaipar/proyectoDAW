@@ -1,12 +1,38 @@
+html,body{
+  margin: 0px;  
+  height: 100%;
+}
+
+/* Enlaces */
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline; 
+}
+
+/* Login */
 .formularios{
-    display: flex;
-    justify-content: center;
-    margin: 8rem auto;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2rem auto;
+  padding: 1px 1px;
+  flex-wrap: wrap;
 }
 
 .formuIdent{
-    border-right: 1px solid grey;
-    padding:4rem 4rem;
+  border-radius: 12px;
+  padding: 5rem 5rem;
+  background-color: #FFFFE0;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);;
+  }
+
+  .formuIdent input{
+    width: 25rem;
   }
 
   .actived{
@@ -21,10 +47,64 @@
     font-weight: bold;
   }
 
+  .titulo_inicio{
+    background-color: #90EE90;
+  }
 
+  .titulo_inicio h1{
+    padding: 1rem 1rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+  }
 
+/* Breakpoints login */
+  @media screen and (max-width: 1125px) {
+    .formularios{ 
+      display: block;
+    }
   
+    .formuIdent{
+      margin: 4rem 10rem;
+    }
+
+    .formuIdent input{
+      max-width: 100%;
+    }
+
+  }
 
 
+  @media screen and (max-width: 658px) {
+    .formuIdent{
+      margin: 4rem 5rem;
+    }
+  }
 
-  
+
+  @media screen and (max-width: 425px) {
+    .formuIdent{
+      margin: 4rem 2rem;
+    }
+  }
+
+
+/* Logueado */
+/* .cuerpoLogueado{
+  display: block;
+  height: 100%;
+  margin: 0;
+} */
+
+/* Barra de navegacion */
+/* .barraNavegacion{
+  display: block;
+  background-color: #90EE90;
+  padding: 1rem 1rem;
+  height: 100%;
+} */
+/* 
+.tituloPrincipal{
+  text-transform: uppercase;
+  font-weight: bold;
+  display: block;
+} */

@@ -1,5 +1,14 @@
 .formuRegist{
-  padding: 4rem 5rem;
+  border-radius: 12px;
+  padding: 5rem 2rem;
+  background-color: #FFFFE0;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);;
+}
+
+.formuRegist input{
+  width: 30rem;
 }
 
 .aster{
@@ -10,6 +19,25 @@ label{
   font-weight: bold;
 }
 
-/* .divFormuRegist{
-  margin-left: 4rem;
-} */
+@media screen and (max-width: 1125px) {
+  .formuRegist{
+    margin: 4rem 10rem;
+  }
+
+  .formuRegist input{
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 658px) {
+  .formuRegist{
+    margin: 4rem 5rem;
+  }
+}
+
+
+@media screen and (max-width: 425px) {
+  .formuRegist{
+    margin: 4rem 2rem;
+  }
+}

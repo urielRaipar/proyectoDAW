@@ -60,7 +60,7 @@ import { ReproductorComponent } from './components/reproductor/reproductor.compo
 })
 
 export class AppComponent implements OnInit {
-  public title = 'Spotismall';
+  public title = 'Spotysmall';
   public usuario: Usuario;
   public identificacion: any;
   public token: any;
