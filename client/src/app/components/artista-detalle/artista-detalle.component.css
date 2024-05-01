@@ -1,0 +1,57 @@
+.cabeceraArt{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 2rem;
+    padding: 2rem 2rem;
+    margin: 2rem 2rem;
+}
+
+h1{
+    font-weight: bold;
+}
+
+.listarAlbunes ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 4rem 4rem;
+}
+
+ul li{
+    margin: 3rem 3rem;
+}
+
+.fichas{
+    margin: 4rem 3rem;
+}
+
+.fichas{
+    height: 70%;
+    width: 100%;
+}
+
+.fichas img{
+    height: 70%;
+}
+
+.botonera{
+    display: flex;
+    margin-bottom: 2rem ;
+}
+
+.botonera button{
+    margin: 1rem 1rem;
+} 
+
+.botonera2{
+    display: flex;
+    margin-bottom: 3rem ;
+}
+
+.botonera2 button{
+    margin: 1rem 1rem;
+} 
+
+h5{
+    font-weight: bold;
+}

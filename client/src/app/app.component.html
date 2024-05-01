@@ -1,47 +1,56 @@
-@if(identificacion){
-    <div class="cuerpoLogueado">
-        <div class="barraNavegacion">
-            <div class="h4 tituloPrincipal">
-                <a [routerLink]="['/']" id="enlacePrincipal">
+<div class="principal">
+    @if(identificacion){
+        <div class="navegador">
+            <div class="h1 tituloPrincipal bg-dark">
+                <a class="text-warning" [routerLink]="['/']" id="enlacePrincipal">
                     {{title}}
                 </a>
             </div>
-            <!-- <nav id="navigation">
-            
-            </nav> -->
-            <nav id="user_navigation">
-                <!-- Enlaces a contenido -->
-                <a [routerLink]="['/artists',1]" [routerLinkActive]="['actived']">Artistas</a><br>
-                <a [routerLink]="['/albums',1]" [routerLinkActive]="['actived']">Albums</a><br><br>
-
+                
+            <div class="enlacesPrincipales">
+                    <!-- Enlaces a contenido -->
+                <div>
+                    <a  [routerLink]="['/artists',1]" [routerLinkActive]="['actived']"><i class="bi bi-music-note-list h3"> Artistas</i></a><br><br>
+                    <a  [routerLink]="['/albums',1]" [routerLinkActive]="['actived']"><i class="bi bi-book-half h3"> Albums</i></a><br><br>
+                </div>
                 <!-- Imagen usuario -->
                 <div>
-                    <img id="imagen_usuario" src="{{url + '/get-image-user/' + identificacion.imagen}}" style="width: 10rem;">
-                </div>
-
+                    <img  id="imagen_usuario" src="{{url + '/get-image-user/' + identificacion.imagen}}" style="width: 10rem;">
+                </div><br>
                 <!-- Nombre usuario -->
-                <span id="nombre_usuario">{{identificacion.nombre}}</span>
-                <br>
-                <!-- Mis datos -->
-                <a [routerLink]="['/misDatos']" [routerLinkActive]="['actived']">Mis datos</a><br><br>
+                <span class="h4" id="nombre_usuario">
+                    <!-- Mis datos -->
+                
+                    <a [routerLink]="['/misDatos']" [routerLinkActive]="['actived']"> 
+                        <i class="bi bi-gear-fill h3"> {{identificacion.nombre}}</i>
+                    </a>
+                </span>
+            </div>
+            
+            <div class="misDatos">
                 <!-- Cerrar sesion -->
-                <button (click)="logout()">Cerrar sesión</button>
-            </nav>
-        </div>
-    <!-- } -->
+                <button type="button" class="btn btn-warning" (click)="logout()"><b>Cerrar sesión</b></button>
+            </div>
 
-    <!-- @if(identificacion){ -->
-        <div class="contenidoMutable">
+        </div> 
+    }
+
+    @if(identificacion){
+        <div class="contenido">
             <!-- Carga de elementos -->
-            <router-outlet></router-outlet>
+            <div>
+                <router-outlet></router-outlet>
+            </div>
             <div>
                 <!-- Reproductor de musica -->
                 <app-reproductor></app-reproductor>
             </div>
         </div>
-    </div>
-    }
-    
+    } 
+    <div></div>
+</div>
+
+
 @if(!identificacion){
     <div class="titulo_inicio">
         <h1>Spotysmall</h1>
@@ -71,6 +80,7 @@
         <app-registro/>
     </div>
 }
+
 
 
 

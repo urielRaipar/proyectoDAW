@@ -1,7 +1,6 @@
-<div>
+<div class="reproductorGeneral"> 
     @if(cancion.album){
         <span>
-            <h1>Sin defecto</h1>
             <img id="play-image-album" src="{{url+'get-image-album/'+cancion.album.imagen}}" style="width: 10rem;">
         </span>
     }@else{
@@ -10,16 +9,17 @@
         </span>
     } 
 
-    <div>
-        <p>Reproduciendo</p>
+    <div class="datosReproductor">
+        <p class="h4">Reproduciendo</p>
         <!-- Cancion sonando -->
-        <span id="cancion_sonando">
-            {{cancion.nombre}}
-        </span>
+            <span id="cancion_sonando">
+                <i class="bi bi-file-earmark-music"> {{cancion.nombre}}</i> 
+            </span>
        <!-- Artista -->
         <span id="artista_sonando">
-            {{cancion.album.artista.nombre}}
+            /  <i class="bi bi-mic-fill"> {{cancion.album.artista.nombre}}</i>
         </span><br>
+    
         <audio controls id="player">
             <source src="{{url+'get-fichero-audio/'+cancion.ficheroMP3}}" type="audio/mpeg" id="mp3-source"/>
             El navegador web no soporta la reproducción de audio

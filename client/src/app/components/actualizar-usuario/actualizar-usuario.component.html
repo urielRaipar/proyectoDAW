@@ -1,27 +1,35 @@
-<div>
+<div class="actualizarMisDatos">
     <h1>{{titulo}}</h1>
     @if(alertUpdate){
-        <div>
+        <div class="alert alert-warning" role="alert">
             {{alertUpdate}}
         </div>
     }
     <!-- Formulario -->
     <form #userUpdateForm="ngForm" (ngSubmit)="onSubmit()" class="formuUpdate">
-        <label for="nombre">Nombre:</label><br/>
-        <input type='text' #nombre="ngModel" name='nombre' [(ngModel)]="usuario.nombre" required/>
-        <br/><br/>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" aria-describedby="emailHelp" #nombre="ngModel" name='nombre' [(ngModel)]="usuario.nombre" required>
+            <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+        </div>
 
-        <label for="apellidos">Apellidos:</label><br/>
-        <input type='text' #apellidos="ngModel" name='apellidos' [(ngModel)]="usuario.apellidos" required/>
-        <br/><br/>
+        <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" aria-describedby="emailHelp" #apellidos="ngModel" name='apellidos' [(ngModel)]="usuario.apellidos" required>
+            <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+        </div>
 
-        <label for="correo">Correo electrónico:</label><br/>
-        <input type='email' #email="ngModel" name='email' [(ngModel)]="usuario.email" required/>
-        <br/>
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" #email="ngModel" name='email' [(ngModel)]="usuario.email" required>
+            <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+        </div><br>
 
-        <!-- <label for="contrasenya">Contraseña:</label><br/>
-        <input type='password' #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required/>
-        <br/><br/> -->
+        <!-- <div class="mb-3">
+            <label for="contrasenya" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="contrasenya" aria-describedby="emailHelp" #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required>
+            <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+        </div> -->
 
         <!-- Futuro campo de subir fichero -->
         @if(usuario.imagen && usuario.imagen!=null){
@@ -29,9 +37,15 @@
                 <img src="{{url + '/get-image-user/' + usuario.imagen}}" style="width: 10rem;">
             </div>
         }
-        <label for="foto_usuario">Sube tu foto: </label><br>
-        <input type="file" id="foto_usuario" placeholder="Subir imagen..." (change)="fileChangeEvent($event)"><br><br><br>
+      
+        <br>
+        <div class="mb-3">
+            <label for="foto_usuario" class="form-label">Sube tu foto</label>
+            <input class="form-control" type="file" id="foto_usuario" placeholder="Subir imagen..." (change)="fileChangeEvent($event)">
+        </div><br>
 
-        <input type='submit'  value="Actualizar mis datos"/>
+        <button type="submit" class="btn btn-success">Actualizar mis datos</button>
     </form>
 </div>
+
+

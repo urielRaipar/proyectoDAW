@@ -34,6 +34,10 @@ export class ReproductorComponent implements OnInit{
       if (sesionR !== null) {
           let cancionAux = JSON.parse(sesionR);
           this.cancion=cancionAux;
+          console.log(this.cancion.album.artista.nombre)
+          console.log('--------------->')
+
+      console.log(this.cancion)
       }else{
           this.cancion=new Cancion(1,'','','','');
       }

@@ -1,0 +1,27 @@
+.reproductorGeneral{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: grey;
+    width: 100%;
+    padding: 2rem 5rem;
+    margin: 1rem 1rem;
+    border-radius: 5rem;
+}
+
+.reproductorGeneral img{
+    border: 1px solid black;
+    border-radius: 1rem;
+}
+
+
+.datosReproductor p{
+    font-weight: bold;
+}
+
+#cancion_sonando{
+    font-weight: bold;
+}
+
+#artista_sonando{
+    font-weight: bold;
+}

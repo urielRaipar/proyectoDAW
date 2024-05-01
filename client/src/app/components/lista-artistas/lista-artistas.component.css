@@ -1,13 +1,56 @@
 .listaArtistas{
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
 }
 
-ul{
+.componenteArtista{
+    display: flex;
+}
+
+.botonesLista{
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    margin:2rem 2rem;
+}
+
+.componenteArtista ul{
+    display: flex;
+    justify-content: space-around;
     list-style-type: none;
 }
 
-.botonera{
-    display: flex;
-    justify-content: space-evenly;
+.botonesLista li{
+    width: 70px;
+    height: 70px;
 }
+
+.listArtistas h1,h2{
+    font-weight: bold;
+    margin:2rem 2rem;
+}
+
+.fichas{
+    margin: 4rem 3rem;
+}
+
+.fichas{
+    height: 70%;
+    width: 100%;
+}
+
+.fichas img{
+    height: 70%;
+}
+
+.botonera button{
+    margin: 1rem 1rem;
+} 
+
+.botonera2{
+    margin-bottom: 3rem ;
+}
+
+.botonera2 button{
+    margin: 1rem 1rem;
+} 

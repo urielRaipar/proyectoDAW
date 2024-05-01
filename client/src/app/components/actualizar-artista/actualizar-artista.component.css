@@ -1,0 +1,24 @@
+.principalAArtista{
+    display: block;
+    justify-content: center;
+    background-color: #FFFFE0;
+    padding: 3rem 3rem;
+    margin: 12rem 4rem;
+}
+
+input{
+    width: 80%;
+}
+
+label{
+    font-weight: bold;
+}
+
+textarea{
+    width: 80%;
+}
+
+
+.aster{
+    color: red;
+  }

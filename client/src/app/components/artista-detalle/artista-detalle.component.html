@@ -1,6 +1,6 @@
 @if(artista){
     <div>
-        <div>
+        <div class="cabeceraArt">
             <!-- Cabecera -->
             <div>
                 @if(artista.imagen && artista.imagen!==null){
@@ -9,47 +9,42 @@
             </div>
             <div>
                 <h1>{{artista.nombre}}</h1>
-                <p>{{artista.descripcion}}</p>
-
-                @if(identificacion.rol=='ROLE_ADMIN'){
-                    <button [routerLink]="['/crearAlbum',artista._id]">Añadir album</button>
-                }
             </div>
+            @if(identificacion.rol=='ROLE_ADMIN'){
+                <div>
+                    <button type="button" class="btn btn-warning" [routerLink]="['/crearAlbum',artista._id]">Añadir album</button>
+                </div>
+            }
         </div>
         <br>
         @if(albums){
-            <div>
+            <div class="listarAlbunes">
                 <!-- Listar albums -->
                 <ul>
                     @for(album of albums;track album._id){
                         <li>
-                            <div>
-                                <img src="{{url+'get-image-album/'+album.imagen}}" style="width: 10rem;">
-                            </div>
-                            <div>
-                                <a [routerLink]="['/album',album._id]">{{album.titulo}}</a><br>
-                                <a [routerLink]="['/artista',album.artista._id]">{{album.artista.nombre}}</a>
-                                <div>
-                                    <div>
-                                        <!-- Borrar album -->
-                                        @if(identificacion.rol=='ROLE_ADMIN'){
-                                            <div class="botonera">
-                                                <button [routerLink]="['/actualizarAlbum',album._id]">Editar</button>
-                                                <button (click)="onDeleteConfirm(album._id)">Borrar</button>
-                                            </div>
-                                        }
-                
-                                        <!-- Confirmacion eliminacion -->
-                                        @if(confirmado==album._id){
-                                            <div>
-                                                <button (click)="onDeleteAlbum(album._id)">Eliminar</button>
-                                                <button (click)="onCancelAlbum()">Cancelar</button>
-                                            </div>
-                                        }
-                
-                                    </div>
+                            <div class="card fichas" style="width: 18rem;">
+                                <img class="card-img-top" src="{{url+'get-image-album/'+album.imagen}}" alt="Card image cap">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{album.titulo}}</h5>
+                                  <p class="card-text">{{album.titulo}}</p>
+                                   <!-- Borrar album -->
+                                    @if(identificacion.rol=='ROLE_ADMIN'){
+                                        <div class="botonera">
+                                            <button type="button" class="btn btn-warning" [routerLink]="['/actualizarAlbum',album._id]">Editar</button>
+                                            <button type="button" class="btn btn-danger" (click)="onDeleteConfirm(album._id)">Borrar</button>
+                                        </div>
+                                    }
+                                    <!-- Confirmacion eliminacion -->
+                                    @if(confirmado==album._id){
+                                        <div class="botonera2">
+                                            <hr>
+                                            <button type="button" class="btn btn-danger" (click)="onDeleteAlbum(album._id)">Eliminar</button>
+                                            <button type="button" class="btn btn-warning" (click)="onCancelAlbum()">Cancelar</button>
+                                        </div>
+                                    }
                                 </div>
-                            </div>
+                              </div>
                         </li>
                     }
                 </ul>

@@ -1,6 +1,11 @@
+html,body{
+  margin: 0px;
+  width: 100%;
+}
+
 .formuRegist{
   border-radius: 12px;
-  padding: 5rem 2rem;
+  padding: 5rem 5rem;
   background-color: #FFFFE0;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
@@ -8,7 +13,7 @@
 }
 
 .formuRegist input{
-  width: 30rem;
+  width: 25rem;
 }
 
 .aster{
