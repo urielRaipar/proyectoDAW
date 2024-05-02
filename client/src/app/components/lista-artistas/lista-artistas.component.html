@@ -27,8 +27,8 @@
                                 <a [routerLink]="['/artista',artista._id]">
                                     {{artista.nombre}}
                                 </a>
-                                <p class="card-text">{{artista.descripcion}}</p>
-                              </h5>
+                            </h5>
+                            <p class="card-text">{{artista.descripcion}}</p>
                                     <!-- Borrar artista -->
                                     @if(identificacion.rol=='ROLE_ADMIN'){
                                         <div class="botonera">

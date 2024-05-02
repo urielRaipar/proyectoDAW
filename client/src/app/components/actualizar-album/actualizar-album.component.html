@@ -1,30 +1,46 @@
 @if(identificacion && identificacion.rol=='ROLE_ADMIN'){
-    <h1>{{title}}</h1>
-    @if(alertMessage){
-        <div>{{alertMessage}}</div>
-    }
-    <form #formAlbum="ngForm" (ngSubmit)="onSubmit()">
-        <label for="titulo">Titulo</label><br>
-        <input type="text" id="titulo" #titulo="ngModel" name="titulo" [(ngModel)]="album.titulo" required><br><br>
-        <label for="descripcion">Descripción</label><br>
-        <textarea #descripcion="ngModel" [(ngModel)]="album.descripcion" name="descripcion" id="descripcion" required></textarea><br><br>
-        <label for="anyo">Año</label><br>
-        <input type="number" #anyo="ngModel" name="anyo" [(ngModel)]="album.anyo" required><br><br>
-
-        @if(album.imagen && album.imagen!=null){
-            <div>
-                <img src="{{url+'get-image-album/'+album.imagen}}" style="width: 10rem;">
-            </div><br><br>
+    <div class="principalAAlbum">
+        <h1>{{title}}</h1>
+        @if(alertMessage){
+            <div class="alert alert-warning" role="alert">
+                {{alertMessage}}
+            </div>
         }
-    
-        <label for="subirImagen">Subir imagen album</label><br>
-        <input type="file" id="subirImagen" placeholder="Selecciona imagen..." (change)="fileChangeEvent($event)"><br><br>
+        <form #formAlbum="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="titulo" aria-describedby="emailHelp" #titulo="ngModel" name="titulo" [(ngModel)]="album.titulo" required>
+                <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+            </div>
+
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="descripcion" style="height: 100px" #descripcion="ngModel" [(ngModel)]="album.descripcion" name="descripcion" id="descripcion" required></textarea>
+                <label for="descripcion">Descripción</label>
+            </div> <br>
 
 
+            <div class="mb-3">
+                <label for="anyo" class="form-label">Año</label>
+                <input type="number" class="form-control" id="anyo" aria-describedby="emailHelp" #anyo="ngModel" name="anyo" [(ngModel)]="album.anyo" required>
+                <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
+            </div>
+         
+            @if(album.imagen && album.imagen!=null){
+                <div>
+                    <img src="{{url+'get-image-album/'+album.imagen}}" style="width: 10rem;">
+                </div><br><br>
+            }
+        
+            <div class="mb-3">
+                <label for="subirImagen" class="form-label">Subir imagen album</label>
+                <input class="form-control" type="file" id="subirImagen" placeholder="Selecciona imagen..." (change)="fileChangeEvent($event)">
+            </div><br>
 
-        <input type="submit" value="Actualizar album"> 
-    </form>
+            <button type="submit" class="btn btn-success">Actualizar album</button>
+        </form>
+    </div>
 }@else{
-    <h1>Error</h1>
-    <p>No tienes acceso a esta parte de la aplicación</p>
+    <div class="alert alert-danger" role="alert">
+        <span>Error </span>No tienes acceso a esta parte de la aplicación
+    </div>
 }

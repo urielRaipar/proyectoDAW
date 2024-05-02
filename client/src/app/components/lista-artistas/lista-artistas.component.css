@@ -20,6 +20,11 @@
     list-style-type: none;
 }
 
+.componenteArtista img{
+    max-height: 15rem;
+    min-height: 15rem;
+}
+
 .botonesLista li{
     width: 70px;
     height: 70px;
@@ -32,6 +37,7 @@
 
 .fichas{
     margin: 4rem 3rem;
+    padding-bottom: 2rem;
 }
 
 .fichas{
@@ -44,7 +50,7 @@
 }
 
 .botonera button{
-    margin: 1rem 1rem;
+    margin:1rem 1rem 4rem 1rem;
 } 
 
 .botonera2{
@@ -54,3 +60,4 @@
 .botonera2 button{
     margin: 1rem 1rem;
 } 
+

@@ -26,8 +26,8 @@
                             <div class="card fichas" style="width: 18rem;">
                                 <img class="card-img-top" src="{{url+'get-image-album/'+album.imagen}}" alt="Card image cap">
                                 <div class="card-body">
-                                  <h5 class="card-title">{{album.titulo}}</h5>
-                                  <p class="card-text">{{album.titulo}}</p>
+                                  <h5 class="card-title"><a [routerLink]="['/album',album._id]">{{album.titulo}}</a></h5>
+                                  <p class="card-text">{{album.descripcion}}</p>
                                    <!-- Borrar album -->
                                     @if(identificacion.rol=='ROLE_ADMIN'){
                                         <div class="botonera">

@@ -1,8 +1,9 @@
 /* General */
-html,body{
-  margin: 0px;
-  width: 100%;
+.principal{
+  height: 100rem;
 }
+
+
 
 /* Login */
 .formularios{

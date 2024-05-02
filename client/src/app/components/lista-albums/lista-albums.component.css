@@ -1,0 +1,63 @@
+.listAlbum{
+    display: flex;
+    flex-direction: column;
+}
+
+.componenteArtista{
+    display: flex;
+}
+
+.botonesAlbum{
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    margin: 5rem 2rem 2rem 2rem;
+}
+
+.componenteAlbum ul{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin-top: 4rem;
+}
+
+.componenteAlbum img{
+    max-height: 15rem;
+    min-height: 15rem;
+}
+
+.botonesAlbum li{
+    width: 70px;
+    height: 70px;
+}
+
+.listAlbum h1,h2{
+    font-weight: bold;
+    margin:2rem 2rem;
+}
+
+
+.fichas{
+    margin: 4rem 3rem;
+}
+
+.fichas{
+    height: 70%;
+    width: 100%;
+}
+
+.fichas img{
+    height: 70%;
+}
+
+.botonera button{
+    margin:1rem 1rem 4rem 1rem;
+} 
+
+.botonera2{
+    margin-bottom: 6rem ;
+}
+
+.botonera2 button{
+    margin: 1rem 1rem;
+} 

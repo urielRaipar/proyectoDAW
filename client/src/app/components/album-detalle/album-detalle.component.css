@@ -1,0 +1,25 @@
+.cabecera{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4rem;
+    margin-bottom: 12rem;
+}
+
+li{
+    background-color: #FFFFE0;
+}
+
+.listaAux{
+    display: flex;
+    justify-content: space-between;
+}
+
+.botoneraP button{
+    margin-right: 2rem;
+}
+
+.botoneraS button{
+    margin-right: 2rem;
+    margin-top: 1rem;
+}

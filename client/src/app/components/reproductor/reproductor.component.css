@@ -1,10 +1,13 @@
+
+
 .reproductorGeneral{
     display: flex;
     justify-content: space-evenly;
     background-color: grey;
     width: 100%;
     padding: 2rem 5rem;
-    margin: 1rem 1rem;
+    margin-top: 35rem;
+    margin-bottom: 2rem;
     border-radius: 5rem;
 }
 

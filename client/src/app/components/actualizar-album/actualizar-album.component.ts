@@ -65,7 +65,7 @@ export class ActualizarAlbumComponent implements OnInit{
             if(!response.album){
               this._router.navigate(['/artista',this.album.artista]);
             }else{
-              this.alertMessage='El album se ha creado correctamente';
+              // this.alertMessage='El album se ha creado correctamente';
               this.album=response.album;
             }
         },
@@ -93,16 +93,16 @@ export class ActualizarAlbumComponent implements OnInit{
               this.alertMessage='Error en el servidor';
             }else{
               this.alertMessage='El album se ha actualizado correctamente';
-              this._router.navigate(['artista',this.album.artista]);
+              this._router.navigate(['artista/',this.album.artista]);
 
               // Subir la imagen del album
               this._uploadService.makeFileRequest(this.url+'upload-image-album/'+id,[],this.filesToUpload,this.token,'imagen')
               .then(
                 (result)=>{
-                  this._router.navigate(['artista',this.album.artista]);
+                  this._router.navigate(['artista/',this.album.artista]);
                 },
                 (error:any)=>{
-                  console.log(error)
+                  console.log(error)  
                 }
               )
             }
@@ -112,6 +112,7 @@ export class ActualizarAlbumComponent implements OnInit{
 
           if(errorMessage!=null){
             let body=JSON.parse(error._body);
+            this.alertMessage=body.message;
 
             console.log(error);
           }

@@ -1,46 +1,49 @@
-<div>
+<div class="listAlbum">
     <h1>{{titulo}}</h1>
-    
-    <ul class="botonesLista">
-        <li><button [routerLink]="['/albums',prev_page]">&laquo;</button></li>
-        <li><button [routerLink]="['/albums',next_page]">&raquo;</button></li>
-    </ul>
-</div>
-
-<!-- Lista de albums-->
-<div>
-    @if(identificacion){
-        <ul class="listaArtistas">
-            @for(album of album_s; track album._id){
-                <li>
-                    <div>
-                        <img src="{{url + 'get-image-album/' + album.imagen}}" style="width: 10rem;">
-                    </div>
-                    <div>
-                        <!-- Detalle album -->
-                        <a [routerLink]="['/album',album._id]">
-                            {{album.titulo}}
-                        </a>
-                        <!-- Borrar artista -->
-                        @if(identificacion.rol=='ROLE_ADMIN'){
-                            <div class="botonera">
-                                <button [routerLink]="['/actualizarAlbum',album._id]">Editar</button>
-                                <button (click)="onDeleteConfirm(album._id)">Borrar</button>
-                            </div>
-                        }
-
-                        <!-- Confirmacion eliminacion -->
-                        @if(confirmado==album._id){
-                            <div>
-                                <button (click)="onDeleteAlbum(album._id)">Eliminar</button>
-                                <button (click)="onCancelAlbum()">Cancelar</button>
-                            </div>
-                        }
-
-                    </div>
-                </li>
-            }
+    <div>
+        <ul class="botonesAlbum">
+            <li><button class="btn btn-primary" [routerLink]="['/albums',prev_page]"><i class="bi bi-caret-left-fill"></i></button></li>
+            <li><button class="btn btn-primary" [routerLink]="['/albums',next_page]"><i class="bi bi-caret-right-fill"></i></button></li>
         </ul>
-    }
+    </div>
+
+    <!-- Lista de albums-->
+    <div class="componenteAlbum">
+        @if(identificacion){
+            <ul>
+                @for(album of album_s; track album._id){
+                    <li>
+                        <div class="card fichas" style="width: 22rem">
+                            <img src="{{url + 'get-image-album/' + album.imagen}}" class="card-img-top">
+                            <div class="card-body">
+                              <h5 class="card-title">
+                                <a [routerLink]="['/album',album._id]">
+                                    {{album.titulo}}
+                                </a>
+                              </h5>
+                              <p class="card-text">{{album.descripcion}}</p>
+                               <!-- Borrar artista -->
+                               @if(identificacion.rol=='ROLE_ADMIN'){
+                                    <div class="botonera">
+                                        <button class="btn btn-warning" [routerLink]="['/actualizarAlbum',album._id]">Editar</button>
+                                        <button class="btn btn-danger" (click)="onDeleteConfirm(album._id)">Borrar</button>
+                                    </div>
+                                }
+
+                                <!-- Confirmacion eliminacion -->
+                                @if(confirmado==album._id){
+                                    <div class="botonera2">
+                                        <hr>
+                                        <button class="btn btn-danger"  (click)="onDeleteAlbum(album._id)">Eliminar</button>
+                                        <button class="btn btn-warning" (click)="onCancelAlbum()">Cancelar</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
 </div>
 
