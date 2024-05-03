@@ -1,5 +1,3 @@
-
-
 .reproductorGeneral{
     display: flex;
     justify-content: space-evenly;
@@ -28,3 +26,38 @@
 #artista_sonando{
     font-weight: bold;
 }
+
+/* Breakpoint */
+@media screen and (max-width: 912px) {
+    .reproductorGeneral{
+        padding: 1rem 1rem;
+    }
+
+    .reproductorGeneral img{
+        height: 100px;
+        width: 80px;
+        padding: 0;
+        margin: 1rem 1rem;
+        flex-direction: row-reverse;
+    }
+}
+
+@media screen and (max-width: 744px) {
+    .reproductorGeneral{
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 744px) {
+    .reproductorGeneral{
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 494px) {
+    .reproductorGeneral{
+        background-color: white;
+    }
+
+}
+

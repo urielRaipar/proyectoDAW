@@ -61,3 +61,24 @@
 .botonera2 button{
     margin: 1rem 1rem;
 } 
+
+/* Breakpoints */
+@media screen and (max-width: 494px) {
+    .fichas{
+        margin: 1rem 1rem;
+    }
+}
+
+
+@media screen and (max-width: 494px) {
+    .fichas{
+        margin-left: 0;
+        height: 50%;
+        width: 80%;
+    }
+
+    .fichas img{
+        height: 40%;
+    }
+
+}
