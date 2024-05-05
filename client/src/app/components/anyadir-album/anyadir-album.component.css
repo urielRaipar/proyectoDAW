@@ -21,3 +21,20 @@ textarea{
 .aster{
     color: red;
   }
+
+
+/* Breakpoints */
+@media screen and (max-width: 658px) {
+.principalCAlbum{
+    margin: 12rem 3rem;
+    padding: 2rem 1rem;
+}
+
+input{
+    width: 100%;
+}
+
+textarea{
+    width: 100%;
+}
+}

@@ -89,25 +89,75 @@ function loginUsuario(req, res){
     })
 }
 
+
+// Mostrar usuarios
+function getUsuarios(req,res){
+    Usuario.find().sort('nombre').then((usur,total)=>{
+        if(!usur){
+            res.status(404).send({message:'No hay usuarios'});
+        }else{
+            return res.status(200).send({
+                total_items:total,
+                usurs:usur
+            })
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message:'Error en la peticion'});
+    })
+}
+
+
+// Eliminar usuario
+function deleteUsuario(req,res){
+    let usuId=req.params.id;
+    console.log(usuId)
+    Usuario.findByIdAndDelete({_id:usuId}).then(usuRemove=>{
+        if(!usuRemove){
+            res.status(404).send({message:'El usuario no se ha borrado correctamente'});
+        }else{
+            res.status(200).send({usu:usuRemove});
+        }
+    })
+    .catch(err=>{
+        res.status(500).send({message:'Error en el servidor'});
+    })
+}
+
+
 // Actualizar usuario
 function updateUser(req,res){
     let userId=req.params.id;
     let update=req.body;
+    let prueba;
 
     if(userId!=req.user.sub){
        return res.status(500),send({message:'No tienes permiso para actualizar este usuario'});
     }
 
-    Usuario.findByIdAndUpdate(userId, update).then((userUpdated)=>{
-        if(!userUpdated){
-            res.status(404).send({message:'No se ha podidio actualizar el usuario'});
-        }else{
-            res.status(200).send({user:userUpdated});
-        }
-    })
-    .catch(err=>{
-        res.status(500),send({message:'Error al actualizar el usuario'});
-    });
+    // Encriptar contraseña
+    if(update.contrasenya){
+        bcrypt.hash(update.contrasenya,null,null,function(err,hash){
+            if (err) {
+                return res.status(500).send({ message: 'Error al encriptar la contraseña' });
+            }
+
+            update.contrasenya=hash;
+            
+            Usuario.findByIdAndUpdate(userId, update).then((userUpdated)=>{
+                if(!userUpdated){
+                    res.status(404).send({message:'No se ha podidio actualizar el usuario'});
+                }else{
+                    res.status(200).send({user:userUpdated});
+                }
+            })
+            .catch(err=>{
+                res.status(500),send({message:'Error al actualizar el usuario'});
+            });
+        });
+    }else{
+        res.status(200).send({message:'Introduce la contraseña'});
+    }
 }
 
 // Subir imagenes de usuario
@@ -164,5 +214,7 @@ module.exports={
     loginUsuario,
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getUsuarios,
+    deleteUsuario
 };

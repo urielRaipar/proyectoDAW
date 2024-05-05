@@ -25,15 +25,16 @@
             <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
         </div><br>
 
-        <!-- <div class="mb-3">
+        <div class="mb-3">
             <label for="contrasenya" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="contrasenya" aria-describedby="emailHelp" #contrasenya="ngModel" name='contrasenya' [(ngModel)]="usuario.contrasenya" required>
             <div id="emailHelp" class="form-text">Campo obligatorio<span class="aster">*</span></div>
-        </div> -->
+        </div> <br>
 
         <!-- Futuro campo de subir fichero -->
         @if(usuario.imagen && usuario.imagen!=null){
             <div>
+                <p>Foto perfil</p>
                 <img src="{{url + '/get-image-user/' + usuario.imagen}}" style="width: 10rem;">
             </div>
         }

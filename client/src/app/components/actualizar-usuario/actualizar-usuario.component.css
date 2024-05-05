@@ -37,3 +37,25 @@
     color: red;
 }
   
+
+@media screen and (max-width: 534px) {
+    .actualizarMisDatos{
+        margin-left: 4rem;
+    }
+
+    .formuUpdate{
+        padding: 4rem 2rem;
+        margin-left: 2rem;
+    }
+
+    .formuUpdate  input{
+        width: 20rem;
+      }
+}
+
+
+@media screen and (max-width: 374px) {
+    .formuUpdate  input{
+        width: 15rem;
+      }
+}

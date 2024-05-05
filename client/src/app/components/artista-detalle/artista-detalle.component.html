@@ -23,7 +23,7 @@
                 <ul>
                     @for(album of albums;track album._id){
                         <li>
-                            <div class="card fichas" style="width: 18rem;">
+                            <div class="card fichas" style="width: 17rem;">
                                 <img class="card-img-top" src="{{url+'get-image-album/'+album.imagen}}" alt="Card image cap">
                                 <div class="card-body">
                                   <h5 class="card-title"><a [routerLink]="['/album',album._id]">{{album.titulo}}</a></h5>

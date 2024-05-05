@@ -1,16 +1,18 @@
 <div class="listArtistas">
-    <h2>¡Bienvenido!</h2>
-    <h1>{{titulo}}</h1>
-    <div>
-        <!-- Boton crear artista -->
-        @if(identificacion && identificacion.rol=='ROLE_ADMIN'){
-            <button class="btn btn-warning" [routerLink]="['/anyadirArtista']" [routerLinkActive]="['actived']">Crear artista</button><br><br>
-        }
-
-        <ul class="botonesLista">
-            <li><button class="btn btn-primary" [routerLink]="['/artists',prev_page]"><i class="bi bi-caret-left-fill"></i></button></li>
-            <li><button class="btn btn-primary" [routerLink]="['/artists',next_page]"><i class="bi bi-caret-right-fill"></i></button></li>
-        </ul>
+    <div class="divSuperior">
+        <h2>¡Bienvenido!</h2>
+        <h1>{{titulo}}</h1>
+        <div class="botoneraListaA">
+            <!-- Boton crear artista -->
+            @if(identificacion && identificacion.rol=='ROLE_ADMIN'){
+                <button class="btn btn-warning" [routerLink]="['/anyadirArtista']" [routerLinkActive]="['actived']">Crear artista</button><br><br>
+            }
+    
+            <ul class="botonesLista">
+                <li><button class="btn btn-primary" [routerLink]="['/artists',prev_page]"><i class="bi bi-caret-left-fill"></i></button></li>
+                <li><button class="btn btn-primary" [routerLink]="['/artists',next_page]"><i class="bi bi-caret-right-fill"></i></button></li>
+            </ul>
+        </div>
     </div>
 
 
@@ -20,7 +22,7 @@
             <ul>
                 @for(artista of artistas; track artista._id){
                     <li>
-                        <div class="card fichas" style="width: 18rem;">
+                        <div class="card fichas" style="width: 17rem;">
                             <img class="card-img-top" src="{{url + 'get-image-artist/' + artista.imagen}}" alt="Card image cap">
                             <div class="card-body">
                               <h5 class="card-title">

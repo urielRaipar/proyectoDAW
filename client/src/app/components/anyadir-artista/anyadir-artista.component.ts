@@ -55,7 +55,6 @@ export class AnyadirArtistaComponent implements OnInit{
           this.alertMessage='Error en el servidor';
         }else{
           this.alertMessage='El artista se ha creado correctamente';
-          console.log(response.artist)
           this._router.navigate(['/editarArtista',response.artist._id]);
         }
       },

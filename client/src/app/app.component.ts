@@ -24,7 +24,10 @@ import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-ca
 import { ActualizarCancionComponent } from './components/actualizar-cancion/actualizar-cancion.component';
 // Reproductor de musica
 import { ReproductorComponent } from './components/reproductor/reproductor.component';
-
+// Portada
+import { PortadaComponent } from './components/portada/portada.component';
+// Gestion
+import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
 
 
 
@@ -50,7 +53,9 @@ import { ReproductorComponent } from './components/reproductor/reproductor.compo
     AnyadirCancionComponent,
     ActualizarCancionComponent,
     ListaAlbumsComponent,
-    ReproductorComponent
+    ReproductorComponent,
+    PortadaComponent,
+    GestionUsuariosComponent
   ],
   providers: [
     UsuarioServicio
@@ -142,6 +147,8 @@ export class AppComponent implements OnInit {
 
     this.identificacion=null;
     this.token=null;
+
+    location.reload();
   }
 
 

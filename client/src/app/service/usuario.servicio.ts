@@ -60,6 +60,18 @@ export class UsuarioServicio{
     
         return this._http.post(this.url+'registro',params,{headers:headers}).pipe(map(res=>res));
     }
+
+    // Mostrar usuarios
+    getUsuarios(token:any){
+        let headers= new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':token
+        });
+
+        return this._http.get(this.url+'mostrarUsuarios',{headers:headers})
+                .pipe(map(res=>res));
+    }
+
   
     // Actualizar usuario
     updateUser(user_update:any){
@@ -70,5 +82,16 @@ export class UsuarioServicio{
         });
     
         return this._http.put(this.url+'update-user/'+user_update._id,params,{headers:headers}).pipe(map(res=>res));
+    }
+
+
+    // Eliminar usuario
+    deleteUser(token:any,id:string){
+        let headers=new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':token
+        });
+
+        return this._http.delete(this.url+'usuario/'+id,{headers:headers}).pipe(map(res=>res));
     }
 }

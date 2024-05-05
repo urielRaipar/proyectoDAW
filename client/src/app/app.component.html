@@ -1,5 +1,6 @@
 <div class="principal">
     @if(identificacion){
+        <!-- Navegador responsive -->
         <div class="navegadorResponsive">
             <div class="dropdown">
                 <button class="btn btn-secondary btn btn-warning" id="botonHamburger" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -13,7 +14,11 @@
                   <li><a class="dropdown-item bg-danger" (click)="logout()"><i class="bi bi-box-arrow-left"> Cerrar sesión</i></a></li>
                 </ul>
             </div>
+            <div class="imagenNavR">
+                <img  id="imagen_usuario" src="{{url + '/get-image-user/' + identificacion.imagen}}" style="width: 5rem;">
+            </div>
         </div>
+        <!-- Navegador -->
         <div class="navegador">
             <div class="h1 tituloPrincipal bg-dark">
                 <a class="text-warning" [routerLink]="['/']" id="enlacePrincipal">
@@ -33,10 +38,16 @@
                 <!-- Nombre usuario -->
                 <span class="h4" id="nombre_usuario">
                     <!-- Mis datos -->
-                
                     <a [routerLink]="['/misDatos']" [routerLinkActive]="['actived']"> 
                         <i class="bi bi-gear-fill h3"> {{identificacion.nombre}}</i>
                     </a>
+                    <!-- GEstion usuarios -->
+                    @if(identificacion && identificacion.rol=='ROLE_ADMIN'){
+                        <br><br>
+                        <a [routerLink]="['/gestionU']" [routerLinkActive]="['actived']"> 
+                            <i class="bi bi-person-vcard h3"> Gestión usuarios</i>
+                        </a>
+                    }
                 </span>
             </div>
             
@@ -44,7 +55,6 @@
                 <!-- Cerrar sesion -->
                 <button type="button" class="btn btn-warning" (click)="logout()"><b>Cerrar sesión</b></button>
             </div>
-
         </div> 
     }
 

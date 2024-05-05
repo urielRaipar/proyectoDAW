@@ -68,6 +68,7 @@ export class ActualizarUsuarioComponent implements OnInit {
           });
         }
         this.alertUpdate='El usuario se ha actualizado';
+        setTimeout(()=>{location.reload();},2000);
       }
     },
     (error)=>{

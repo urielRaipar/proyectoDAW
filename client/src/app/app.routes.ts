@@ -15,13 +15,17 @@ import { ListaAlbumsComponent } from './components/lista-albums/lista-albums.com
 // Importaciones canciones
 import { AnyadirCancionComponent } from './components/anyadir-cancion/anyadir-cancion.component';
 import { ActualizarCancionComponent } from './components/actualizar-cancion/actualizar-cancion.component';
+// Portada
+import { PortadaComponent } from './components/portada/portada.component';
+// Gestion
+import { GestionUsuariosComponent } from './components/gestion-usuarios/gestion-usuarios.component';
 
 
 export const routes: Routes = [
     // Ruta general
     {
         path:'',
-        redirectTo:'artists/1',
+        redirectTo:'portada',
         pathMatch:'full'
     },
     // Rutas usuarios
@@ -72,13 +76,22 @@ export const routes: Routes = [
         path:'actualizarCancion/:id',
         component:ActualizarCancionComponent
     },
+    {
+        path:'portada',
+        component:PortadaComponent
+    },
+    // Gestion usuarios
+    {
+        path:'gestionU',
+        component:GestionUsuariosComponent
+    },
     // Rutas por defecto
     {
         path:'',
-        component: ListaArtistasComponent
+        component:PortadaComponent
     },
     {
         path:'**',
-        component: ListaArtistasComponent
+        component:PortadaComponent
     },
 ];

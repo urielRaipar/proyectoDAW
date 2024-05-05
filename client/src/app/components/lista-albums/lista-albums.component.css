@@ -14,9 +14,14 @@
     margin: 5rem 2rem 2rem 2rem;
 }
 
+h1,h2{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .componenteAlbum ul{
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     list-style-type: none;
     margin-top: 4rem;
 }
@@ -36,18 +41,12 @@
     margin:2rem 2rem;
 }
 
-
 .fichas{
     margin: 4rem 3rem;
-}
-
-.fichas{
-    height: 70%;
     width: 100%;
-}
-
-.fichas img{
-    height: 70%;
+    -webkit-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px -6px rgba(0,0,0,0.75);
 }
 
 .botonera button{
@@ -65,20 +64,24 @@
 /* Breakpoints */
 @media screen and (max-width: 494px) {
     .fichas{
-        margin: 1rem 1rem;
+        margin-left: 1rem;
+        width: 100%;
     }
+
+    /* .fichas{
+        margin: 3rem 1rem;
+    } */
 }
 
 
-@media screen and (max-width: 494px) {
-    .fichas{
-        margin-left: 0;
-        height: 50%;
-        width: 80%;
-    }
-
+@media screen and (max-width: 390px) {
     .fichas img{
-        height: 40%;
+        height: 70%;
     }
 
+    .fichas{
+        width: 100%;
+         margin: 2rem 0rem; 
+         margin-right: 8px; 
+    }
 }
