@@ -53,19 +53,19 @@ export class GestionUsuariosComponent implements OnInit{
       }else{
         this.usuarios=response.usurs;
       }
-  },
-  (error)=>{
-    let errorMessage=<any>error;
+    },
+    (error)=>{
+      let errorMessage=<any>error;
 
-    if(errorMessage != null){
-      let body=JSON.parse(error.body);
-      this.alertMessage=body.message;
+      if(errorMessage != null){
+        let body=JSON.parse(error.body);
+        this.alertMessage=body.message;
 
-      console.log(error)
+        console.log(error)
+      }
     }
-  }
-)
-  }
+  )
+}
 
 
   borrarU() {
@@ -95,6 +95,30 @@ export class GestionUsuariosComponent implements OnInit{
   }
 
 
+  asignarAdmin(){
+    let id=this.usuarioSeleccionado;
+    this._userService.updateRol(id).subscribe(
+      (response:any)=>{
+        if (!response.user) {
+          this.alertMessage='Error en el servidor';
+        } else {
+          this.alertMessage='Usuario asignado con rol administrador';
+          setTimeout(()=>{
+            this._router.navigate(['/']);
+          },2000);
+        }
+      },
+      (error)=>{
+        let errorMessage=<any>error;
 
+        if(errorMessage != null){
+          let body=JSON.parse(error.body);
+          // this.alertMessage=body.message;
 
+          console.log(error)
+        }  
+      }
+    ); 
+  }  
 }
+

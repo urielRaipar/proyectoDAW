@@ -129,7 +129,6 @@ function deleteUsuario(req,res){
 function updateUser(req,res){
     let userId=req.params.id;
     let update=req.body;
-    let prueba;
 
     if(userId!=req.user.sub){
        return res.status(500),send({message:'No tienes permiso para actualizar este usuario'});
@@ -159,6 +158,25 @@ function updateUser(req,res){
         res.status(200).send({message:'Introduce la contraseña'});
     }
 }
+
+// Cambiar de rol
+function updateRol(req,res){
+    let userId=req.params.id;
+    let update=req.body;
+
+    Usuario.findByIdAndUpdate(userId, {rol:'ROLE_ADMIN'})
+    .then((userUpdated)=>{
+        if(!userUpdated){
+            res.status(404).send({message:'No se ha podidio actualizar el usuario'});
+        }else{
+            res.status(200).send({user:userUpdated});
+        }
+    })
+    .catch(err=>{
+        res.status(500),send({message:'Error al actualizar el usuario'});
+    });
+};
+
 
 // Subir imagenes de usuario
 function uploadImage(req,res){
@@ -216,5 +234,6 @@ module.exports={
     uploadImage,
     getImageFile,
     getUsuarios,
-    deleteUsuario
+    deleteUsuario,
+    updateRol
 };

@@ -12,9 +12,22 @@
     margin-bottom: 3rem;
 }
 
+.botonera{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
 /* Breakpoints */
 @media screen and (max-width: 500px) {
     .gestionU{
         margin: 25rem auto 15rem 4rem;
     }
 }
+
+@media screen and (max-width: 509px) {
+    .botonera button{
+        margin-bottom: 1rem;
+    }
+}
+

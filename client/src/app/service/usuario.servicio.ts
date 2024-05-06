@@ -84,6 +84,16 @@ export class UsuarioServicio{
         return this._http.put(this.url+'update-user/'+user_update._id,params,{headers:headers}).pipe(map(res=>res));
     }
 
+      // Actualizar rol usuario
+    updateRol(user_update:any){
+        let headers= new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':this.getToken()
+        });
+    
+        return this._http.put(this.url+'update-rol/'+user_update,{},{headers:headers}).pipe(map(res=>res));
+    }
+
 
     // Eliminar usuario
     deleteUser(token:any,id:string){

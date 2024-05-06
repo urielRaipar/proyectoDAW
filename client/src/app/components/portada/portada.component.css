@@ -28,6 +28,16 @@
     flex-wrap:wrap;
 }
 
+.correoContacto{
+    margin-top: 6rem;
+    text-align: center;
+}
+
+.correoContacto span{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
 /* Breakpoints */
 @media screen and (max-width: 1316px) {
     .textos h1{
