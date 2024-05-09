@@ -7,7 +7,7 @@ const puerto=process.env.PORT || 4000;
 //Conexion BBDD 
 const conectarBBDD= async ()=>{
     try{
-       await mongoose.connect('mongodb://127.0.0.1:27017/webapp_musica');
+       await mongoose.connect('mongodb://127.0.0.1:27017/webapp_prueba');
        console.log('Conectado a la BBDD');
 
        app.listen(puerto,()=>{
