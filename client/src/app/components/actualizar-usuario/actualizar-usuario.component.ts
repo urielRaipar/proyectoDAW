@@ -26,6 +26,7 @@ export class ActualizarUsuarioComponent implements OnInit {
   public url:any;
   public rellenar:any;
   public emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  public imageRegex: RegExp = /\.(jpg|jpeg|png)$/i;
 
   constructor(
     private _usuarioServicio:UsuarioServicio
@@ -45,47 +46,47 @@ export class ActualizarUsuarioComponent implements OnInit {
 
   // Actualizar usuario
   onSubmit(){
-    if(this.usuario.nombre=='' || this.usuario.apellidos=='' || this.usuario.contrasenya==''
-   ||  this.usuario.email==''){
-      this.rellenar='Tienes que rellenar todos los campos';
-   }else if(this.emailRegex.test(this.usuario.email)){
-    this._usuarioServicio.updateUser(this.usuario).subscribe((response:any)=>{
-      
-      if(!response.user){
-        this.alertUpdate='El usuario no se ha actualizado';
-      }else{
-        // this.usuario=response.user;
-        localStorage.setItem('identity',JSON.stringify(this.usuario));
-        let nom:any=document.querySelector('#nombre_usuario');
-        nom.innerHTML=this.usuario.nombre;
-        
-        if(!this.filesToUpload){
-          // Redireccion
-        }else{
-          this.makeFileRequest(this.url+'/upload-image-user/'+this.usuario._id,[],this.filesToUpload)
-          .then((result:any)=>{
-            // Guardar imagen en bbdd
-            this.usuario.imagen=result.imagen;
-            localStorage.setItem('identity',JSON.stringify(this.usuario));
+    if (this.usuario.nombre == '' || this.usuario.apellidos == '' || this.usuario.contrasenya == '' || this.usuario.email == '') {
+      this.rellenar = 'Tienes que rellenar todos los campos';
+    } else if (this.usuario.email && !this.emailRegex.test(this.usuario.email)) {
+      this.rellenar = 'El correo electrónico no es válido';
+    } else {
+      this._usuarioServicio.updateUser(this.usuario).subscribe(
+        (response: any) => {
+          if (!response.user) {
+            this.alertUpdate = 'El usuario no se ha actualizado';
+          } else {
+            this.alertUpdate = 'El usuario se ha actualizado correctamente';
+            localStorage.setItem('identity', JSON.stringify(this.usuario));
 
-            // Actualizar imagen sin recarga
-            let image_path=this.url+'/get-image-user/'+this.usuario.imagen;
-            document.getElementById('imagen_usuario')?.setAttribute('src',image_path);
-          });
+            // Subir la imagen del usuario si se ha seleccionado una
+            if (this.filesToUpload && this.filesToUpload.length > 0) {
+              if (!this.imageRegex.test(this.filesToUpload[0].name)) {
+                this.alertUpdate = 'La imagen seleccionada no tiene una extensión válida (.jpg, .jpeg o .png).';
+                return;
+              }
+
+              this.makeFileRequest(this.url + '/upload-image-user/' + this.usuario._id, [], this.filesToUpload)
+                .then((result: any) => {
+                  this.usuario.imagen = result.imagen;
+                  localStorage.setItem('identity', JSON.stringify(this.usuario));
+                  // Actualizar imagen sin recargar la página
+                  let image_path = this.url + '/get-image-user/' + this.usuario.imagen;
+                  document.getElementById('imagen_usuario')?.setAttribute('src', image_path);
+                })
+                .catch((error: any) => {
+                  console.error('Error al subir la imagen:', error);
+                });
+            }
+          }
+        },
+        (error) => {
+          let errorMessage = <any>error;
+          if (errorMessage != null) {
+            this.alertUpdate = error.error.message;
+          }
         }
-        this.alertUpdate='El usuario se ha actualizado';
-        setTimeout(()=>{location.reload();},2000);
-      }
-    },
-    (error)=>{
-      let errorMessage = <any>error;
-
-      if (errorMessage != null) {
-        this.alertUpdate = error.error.message;
-      }
-    });
-    }else{
-      this.rellenar='El correo electronico no es valido';
+      );
     }
   }
 

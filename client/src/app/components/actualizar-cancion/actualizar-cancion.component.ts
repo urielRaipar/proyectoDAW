@@ -84,48 +84,67 @@ export class ActualizarCancionComponent implements OnInit {
 
 
 // Insertar album
-  onSubmit(){
-    console.log(this.cancion.ficheroMP3)
-    if(this.cancion.numero==null || this.cancion.nombre=='' || this.cancion.duracion==''){
-      this.rellenar='Tienes que rellenar todos los campos';
-   }
-    this._route.params.forEach((params:Params)=>{
-      let id=params['id'];
 
-      this._cancionService.updateCancion(this.token,id,this.cancion).subscribe(
-        (response:any)=>{
-          if(!response.songs){
-            this.alertMessage='Error en el servidor';
-          }else{
-            this.alertMessage='La canción se ha actualizado correctamente';
-            if (!this.filesToUpload) {
-                  this._router.navigate(['/album',response.songs.album]);
-            } else {
-                // Subir fichero de audio
-                this._uploadService.makeFileRequest(this.url+'subir-fichero-audio/'+id,[],this.filesToUpload,this.token,'ficheroMP3')
+    onSubmit(){
+      if(this.cancion.numero==null || this.cancion.nombre=='' || this.cancion.duracion==''){
+        this.rellenar='Tienes que rellenar todos los campos';
+        return; // Agregar un return para salir de la función si faltan campos
+      }
+  
+      if (!this.filesToUpload || this.filesToUpload.length === 0) {
+        this.alertMessage = 'Debes seleccionar un archivo para subir.';
+        return; // Salir de la función si no hay archivos seleccionados
+      }
+  
+      let validFile = false;
+      for (let i = 0; i < this.filesToUpload.length; i++) {
+        const file = this.filesToUpload[i];
+        if (this.fileRegex.test(file.name)) {
+          validFile = true;
+          break;
+        }
+      }
+  
+      if (!validFile) {
+        this.alertMessage = 'Ninguno de los archivos seleccionados tiene una extensión válida (.mp3 o .mp4).';
+        return; // Salir de la función si ningún archivo cumple con la extensión requerida
+      }
+  
+      this._route.params.forEach((params:Params)=>{
+        let id=params['id'];
+  
+        this._cancionService.updateCancion(this.token,id,this.cancion).subscribe(
+          (response:any)=>{
+            if(!response.songs){
+              this.alertMessage='Error en el servidor';
+            }else{
+              this.alertMessage='La canción se ha actualizado correctamente';
+              // Subir fichero de audio
+              this._uploadService.makeFileRequest(this.url+'subir-fichero-audio/'+id,[],this.filesToUpload,this.token,'ficheroMP3')
                 .then((result)=>{
                   this._router.navigate(['/album',response.songs.album])
                 },
                 (error)=>{
                   console.log(error)
-                }
-              );
+                });
+            }
+          },
+          (error)=>{
+            let errorMessage=<any>error;
+    
+            if(errorMessage != null){
+              let body=JSON.parse(error.body);
+              this.alertMessage=body.message;
+    
+              console.log(error)
             }
           }
-        },
-        (error)=>{
-          let errorMessage=<any>error;
+        )
+      });
+    }
   
-          if(errorMessage != null){
-            let body=JSON.parse(error.body);
-            this.alertMessage=body.message;
   
-            console.log(error)
-          }
-        }
-      )
-    });
-  }
+
 
   // Ficheros seleccionados
   fileChangeEvent(fileInput:any){

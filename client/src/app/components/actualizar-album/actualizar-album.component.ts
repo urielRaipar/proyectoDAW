@@ -33,6 +33,7 @@ export class ActualizarAlbumComponent implements OnInit{
   public alertMessage:any;
   public filesToUpload:any;
   public rellenar:any;
+  public imageRegex: RegExp = /\.(jpg|jpeg|png)$/i;
 
   constructor(
     private _route:ActivatedRoute,
@@ -85,44 +86,50 @@ export class ActualizarAlbumComponent implements OnInit{
 
   // Enviar formulario
   onSubmit(){
-    if(this.album.titulo=='' || this.album.descripcion=='' || this.album.anyo==null){
-      this.rellenar='Tienes que rellenar todos los campos';
-   }else{
-    this._route.params.forEach((params:Params)=>{
-      let id=params['id'];
+    if (this.album.titulo == '' || this.album.descripcion == '' || this.album.anyo == null) {
+      this.rellenar = 'Tienes que rellenar todos los campos';
+    } else {
+      if (!this.filesToUpload) {
+        this.alertMessage = 'Debes seleccionar una imagen para subir.';
+        return;
+      }
 
-      this._albumService.editAlbum(this.token,id,this.album).subscribe(
-        (response:any)=>{
-            if(!response.album){
-              this.alertMessage='Error en el servidor';
-            }else{
-              this.alertMessage='El album se ha actualizado correctamente';
-              this._router.navigate(['artista/',this.album.artista]);
+      if (!this.imageRegex.test(this.filesToUpload[0].name)) {
+        this.alertMessage = 'La imagen seleccionada no tiene una extensión válida (.jpg, .jpeg o .png).';
+        return;
+      }
 
-              // Subir la imagen del album
-              this._uploadService.makeFileRequest(this.url+'upload-image-album/'+id,[],this.filesToUpload,this.token,'imagen')
-              .then(
-                (result)=>{
-                  this._router.navigate(['artista/',this.album.artista]);
-                },
-                (error:any)=>{
-                  console.log(error)  
-                }
-              )
+      this._route.params.forEach((params: Params) => {
+        let id = params['id'];
+
+        this._albumService.editAlbum(this.token, id, this.album).subscribe(
+          (response: any) => {
+            if (!response.album) {
+              this.alertMessage = 'Error en el servidor';
+            } else {
+              this.alertMessage = 'El album se ha actualizado correctamente';
+
+              // Subir la imagen del álbum
+              if (this.filesToUpload) {
+                this._uploadService.makeFileRequest(this.url + 'upload-image-album/' + id, [], this.filesToUpload, this.token, 'imagen')
+                  .then(
+                    (result) => {
+                      console.log('Imagen subida correctamente');
+                    },
+                    (error: any) => {
+                      console.log(error);
+                    }
+                  );
+              }
+
+              this._router.navigate(['/album', id]); // Redirigir al detalle del álbum actualizado
             }
-        },
-        (error)=>{
-          let errorMessage=<any>error;
-
-          if(errorMessage!=null){
-            let body=JSON.parse(error._body);
-            this.alertMessage=body.message;
-
+          },
+          (error) => {
             console.log(error);
           }
-        }
-      );
-    });
+        );
+      });
     }
   }
 
