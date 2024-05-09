@@ -24,6 +24,8 @@ export class ActualizarUsuarioComponent implements OnInit {
   public alertUpdate:any;
   public filesToUpload:any;
   public url:any;
+  public rellenar:any;
+  public emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   constructor(
     private _usuarioServicio:UsuarioServicio
@@ -43,6 +45,10 @@ export class ActualizarUsuarioComponent implements OnInit {
 
   // Actualizar usuario
   onSubmit(){
+    if(this.usuario.nombre=='' || this.usuario.apellidos=='' || this.usuario.contrasenya==''
+   ||  this.usuario.email==''){
+      this.rellenar='Tienes que rellenar todos los campos';
+   }else if(this.emailRegex.test(this.usuario.email)){
     this._usuarioServicio.updateUser(this.usuario).subscribe((response:any)=>{
       
       if(!response.user){
@@ -78,6 +84,9 @@ export class ActualizarUsuarioComponent implements OnInit {
         this.alertUpdate = error.error.message;
       }
     });
+    }else{
+      this.rellenar='El correo electronico no es valido';
+    }
   }
 
   // Subir ficheros

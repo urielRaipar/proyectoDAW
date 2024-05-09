@@ -30,6 +30,8 @@ export class ActualizarCancionComponent implements OnInit {
   public url;
   public alertMessage:any;
   public filesToUpload:any;
+  public rellenar:any;
+  public fileRegex: RegExp = /\.mp3$|\.mp4$/i;
 
   constructor(
     private _route:ActivatedRoute,
@@ -83,6 +85,10 @@ export class ActualizarCancionComponent implements OnInit {
 
 // Insertar album
   onSubmit(){
+    console.log(this.cancion.ficheroMP3)
+    if(this.cancion.numero==null || this.cancion.nombre=='' || this.cancion.duracion==''){
+      this.rellenar='Tienes que rellenar todos los campos';
+   }
     this._route.params.forEach((params:Params)=>{
       let id=params['id'];
 

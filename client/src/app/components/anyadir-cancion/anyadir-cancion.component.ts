@@ -27,6 +27,7 @@ export class AnyadirCancionComponent implements OnInit{
   public token;
   public url;
   public alertMessage:any;
+  public rellenar:any;
 
   constructor(
     private _route:ActivatedRoute,
@@ -48,6 +49,9 @@ export class AnyadirCancionComponent implements OnInit{
 
 // Insertar album
   onSubmit(){
+    if(this.cancion.numero==null || this.cancion.nombre=='' || this.cancion.duracion==''){
+      this.rellenar='Tienes que rellenar todos los campos';
+   }else{
     this._route.params.forEach((params:Params)=>{
       let album_id=params['album'];
       this.cancion.album=album_id;
@@ -76,5 +80,5 @@ export class AnyadirCancionComponent implements OnInit{
     });
   
   }
-
+  }
 }

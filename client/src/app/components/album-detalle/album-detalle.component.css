@@ -13,6 +13,7 @@ li{
 .listaAux{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20rem;
 }
 
 .botoneraP button{

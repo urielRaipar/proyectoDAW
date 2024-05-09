@@ -5,6 +5,11 @@
             {{alertUpdate}}
         </div>
     }
+    @if(rellenar){
+        <div class="alert alert-danger" role="alert">
+            {{rellenar}}
+        </div>
+    }
     <!-- Formulario -->
     <form #userUpdateForm="ngForm" (ngSubmit)="onSubmit()" class="formuUpdate">
         <div class="mb-3">

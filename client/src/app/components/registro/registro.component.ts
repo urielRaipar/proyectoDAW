@@ -16,6 +16,8 @@ export class RegistroComponent {
   public usuario_registro: Usuario;
   public alertRegister: any; 
   public rellenar:any;
+  public alerta=false;
+  public emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   constructor(
     private _usuarioServicio: UsuarioServicio
@@ -29,7 +31,7 @@ onSubmitRegister(){
   if(this.usuario_registro.nombre=='' || this.usuario_registro.apellidos=='' || this.usuario_registro.contrasenya==''
    ||  this.usuario_registro.email==''){
       this.rellenar='Tienes que rellenar todos los campos';
-   }else{
+   }else if(this.emailRegex.test(this.usuario_registro.email)){
     this.rellenar=null;
       this._usuarioServicio.registrer(this.usuario_registro).subscribe((response:any)=>{
         let userAux=response.user;
@@ -53,6 +55,8 @@ onSubmitRegister(){
         }
       }
     )
+  }else{
+    this.rellenar='El correo electronico no es valido';
   }
 }
 

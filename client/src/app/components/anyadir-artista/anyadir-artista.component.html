@@ -6,6 +6,11 @@
                 {{alertMessage}}
             </div>
         }
+        @if(rellenar){
+            <div class="alert alert-danger" role="alert">
+                {{rellenar}}
+            </div>
+        }
         <form #formArtista="ngForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>

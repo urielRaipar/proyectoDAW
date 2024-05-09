@@ -30,6 +30,7 @@ export class ActualizarArtistaComponent implements OnInit{
   public url;
   public alertMessage:any;
   public filesToUpload:any;
+  public rellenar:any;
 
   constructor(
     private _route:ActivatedRoute,
@@ -77,7 +78,9 @@ export class ActualizarArtistaComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log(this.artista)
+    if(this.artista.nombre=='' || this.artista.descripcion==''){
+       this.rellenar='Tienes que rellenar todos los campos';
+    }else{
     this._route.params.forEach((params:Params)=>{
       let id=params['id'];
       this._artistaServicio.editArtista(this.token,id,this.artista).subscribe(
@@ -115,7 +118,7 @@ export class ActualizarArtistaComponent implements OnInit{
         }
       );
     });
-
+    }
   }
 
   fileChangeEvent(fileInput:any){

@@ -27,6 +27,7 @@ export class AnyadirArtistaComponent implements OnInit{
   public token;
   public url;
   public alertMessage:any;
+  public rellenar:any;
 
   constructor(
     private _route:ActivatedRoute,
@@ -47,6 +48,9 @@ export class AnyadirArtistaComponent implements OnInit{
   }
 
   onSubmit(){
+    if(this.artista.nombre=='' || this.artista.descripcion==''){
+      this.rellenar='Tienes que rellenar todos los campos';
+   }else{
     console.log(this.artista)
     this._artistaServicio.addArtist(this.token,this.artista).subscribe(
       (response:any)=>{
@@ -70,5 +74,5 @@ export class AnyadirArtistaComponent implements OnInit{
       }
     );
   }
-
+  }
 }

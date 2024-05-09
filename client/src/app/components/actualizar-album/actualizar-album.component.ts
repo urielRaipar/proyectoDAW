@@ -32,6 +32,7 @@ export class ActualizarAlbumComponent implements OnInit{
   public url;
   public alertMessage:any;
   public filesToUpload:any;
+  public rellenar:any;
 
   constructor(
     private _route:ActivatedRoute,
@@ -84,6 +85,9 @@ export class ActualizarAlbumComponent implements OnInit{
 
   // Enviar formulario
   onSubmit(){
+    if(this.album.titulo=='' || this.album.descripcion=='' || this.album.anyo==null){
+      this.rellenar='Tienes que rellenar todos los campos';
+   }else{
     this._route.params.forEach((params:Params)=>{
       let id=params['id'];
 
@@ -119,6 +123,7 @@ export class ActualizarAlbumComponent implements OnInit{
         }
       );
     });
+    }
   }
 
   fileChangeEvent(fileInput:any){

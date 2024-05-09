@@ -85,13 +85,12 @@ export class AppComponent implements OnInit {
     this.identificacion=JSON.parse(this._usuarioServicio.getIdentity());
     this.token=this._usuarioServicio.getToken();
 
-    console.log(this.identificacion)
-    console.log(this.token)
+    // console.log(this.identificacion)
+    // console.log(this.token)
   }
 
   // Logearse
   public onSubmit() {
-    console.log(this.usuario)
 
     // Conseguir datos del usuario identificado
     this._usuarioServicio.signup(this.usuario).subscribe((response: any) => {
