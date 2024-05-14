@@ -9,7 +9,7 @@ const Cancion = require('./modelos/cancion');
 const Usuario = require('./modelos/usuario');
 
 // URL de conexión a la base de datos MongoDB
-const url = 'mongodb://localhost:27017/webapp_prueba';
+const url = 'mongodb://mongodb:27017/webapp_musica';
 
 async function crearYInsertar() {
     try {
