@@ -112,36 +112,37 @@ function deleteSong(req,res){
 
 // Subir fichero de audio
 function subirAudio(req,res){
-    let songId=req.params.id;
-    let file_name='No subido...';
- 
-    if(req.files){
-         let file_path=req.files.ficheroMP3.path;
-         let file_split = file_path.split('\\');
-         let file_name=file_split[2];
- 
-         let ext_split=file_name.split('\.');
-         let file_ext=ext_split[1];
- 
-         if(file_ext=='mp3' || file_ext=='ogg'){
-             Cancion.findByIdAndUpdate(songId,{ficheroMP3:file_name}).then(songUpdated=>{
-                 if(!songUpdated){
-                     res.status(404).send({message:'No se ha podidio actualizar la cancion'});
-                 }else{
-                     res.status(200).send({song:songUpdated});
-                 }
-             })
-             .catch(err=>{
-                 res.status(500).send({message: 'Error al subir el audio'});
-             })
-         }else{
-             res.status(200).send({message:'Extension del archivo no valida'});
-         }
-    }else{
-         res.status(200).send({message:'No se ha subido ningun fichero de audio...'});
+    let songId = req.params.id;
+    let file_name = 'No subido...';
+
+    if (req.files && req.files.ficheroMP3) {
+        let file_path = req.files.ficheroMP3.path;
+        let file_name = path.basename(file_path);
+        let ext_split = file_name.split('.');
+        let file_ext = ext_split[ext_split.length - 1].toLowerCase();
+
+        if (file_ext === 'mp3' || file_ext === 'ogg') {
+            Cancion.findByIdAndUpdate(songId, { ficheroMP3: file_name })
+                .then(songUpdated => {
+                    if (!songUpdated) {
+                        res.status(404).send({ message: 'No se ha podido actualizar la canción' });
+                    } else {
+                        res.status(200).send({ song: songUpdated });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({ message: 'Error al subir el audio', error: err });
+                });
+        } else {
+            res.status(400).send({ message: 'Extensión del archivo no válida' });
+        }
+    } else {
+        res.status(400).send({ message: 'No se ha subido ningún fichero de audio...' });
     }
- 
-   
+}
+
+module.exports = {
+    subirAudio
  }
  
  // Mostrar fichero de audio

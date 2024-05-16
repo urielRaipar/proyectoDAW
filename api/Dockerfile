@@ -7,6 +7,10 @@ WORKDIR /app
 # Copia los archivos del backend al contenedor
 COPY . /app/
 
+# Instalar nodemon
+RUN npm install -g nodemon && \
+chmod +x /usr/local/lib/node_modules/nodemon/bin/nodemon.js
+
 # Instala las dependencias del backend
 RUN npm install
 

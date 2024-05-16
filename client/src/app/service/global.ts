@@ -1,4 +1,4 @@
 export const GLOBAL={
-    // url:'http://localhost:4000/api/'
-    url:'http://node-backend:3000/api/'
+    url:'http://localhost:3000/api/'
+    // url:'http://nodejs:3000/api/'
 }

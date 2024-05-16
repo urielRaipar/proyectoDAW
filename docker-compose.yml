@@ -4,6 +4,7 @@
 
 services:
   angular:
+    container_name: angular
     # Nombre del servicio para la aplicación Angular
     build:
       # Ruta al Dockerfile del frontend
@@ -14,6 +15,7 @@ services:
       - "80:80"
   
   nodejs:
+    container_name: nodejs
     # Nombre del servicio para el backend Node.js
     build:
       # Ruta al Dockerfile del backend
@@ -31,6 +33,7 @@ services:
     
 
   mongodb:
+    container_name: mongodb
     # Configuración para el contenedor de MongoDB
     image: mongo
     ports:

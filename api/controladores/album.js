@@ -140,36 +140,37 @@ function deleteAlbum(req,res){
 
 // Subir imagen album
 function uploadImage(req,res){
-    let albumId=req.params.id;
-    let file_name='No subido...';
- 
-    if(req.files){
-         let file_path=req.files.imagen.path;
-         let file_split = file_path.split('\\');
-         let file_name=file_split[2];
- 
-         let ext_split=file_name.split('\.');
-         let file_ext=ext_split[1];
- 
-         if(file_ext=='png' || file_ext=='jpg' || file_ext=='gif'){
-             Album.findByIdAndUpdate(albumId,{imagen:file_name}).then(albumUpdated=>{
-                 if(!albumUpdated){
-                     res.status(404).send({message:'No se ha podidio actualizar la imagen del album'});
-                 }else{
-                     res.status(200).send({album:albumUpdated});
-                 }
-             })
-             .catch(err=>{
-                 res.status(500).send({message: 'Error al subir la imagen'});
-             })
-         }else{
-             res.status(200).send({message:'Extension del archivo no valida'});
-         }
-    }else{
-         res.status(200).send({message:'No se ha subido ninguna imagen...'});
+    let albumId = req.params.id;
+    let file_name = 'No subido...';
+
+    if (req.files && req.files.imagen) {
+        let file_path = req.files.imagen.path;
+        let file_name = path.basename(file_path);
+        let ext_split = file_name.split('.');
+        let file_ext = ext_split[ext_split.length - 1].toLowerCase();
+
+        if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'gif') {
+            Album.findByIdAndUpdate(albumId, { imagen: file_name })
+                .then(albumUpdated => {
+                    if (!albumUpdated) {
+                        res.status(404).send({ message: 'No se ha podido actualizar la imagen del álbum' });
+                    } else {
+                        res.status(200).send({ album: albumUpdated });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({ message: 'Error al subir la imagen', error: err });
+                });
+        } else {
+            res.status(400).send({ message: 'Extensión del archivo no válida' });
+        }
+    } else {
+        res.status(400).send({ message: 'No se ha subido ninguna imagen...' });
     }
- 
-   
+}
+
+module.exports = {
+    uploadImage
  }
  
  // Mostrar imagen album

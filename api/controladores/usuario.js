@@ -52,6 +52,7 @@ function guardarUsuario(req, res){
     }
 }
 
+
 // Buscar usuario login
 function loginUsuario(req, res){
     let params=req.body;
@@ -124,28 +125,26 @@ function deleteUsuario(req,res){
     })
 }
 
-
-// Actualizar usuario
-function updateUser(req,res){
+// Actualizar contrseña
+function updatePassword(req,res){
     let userId=req.params.id;
     let update=req.body;
 
-    if(userId!=req.user.sub){
-       return res.status(500),send({message:'No tienes permiso para actualizar este usuario'});
-    }
-
-    // Encriptar contraseña
+    console.log('En el controlador api '+userId)
+    console.log('La contra sin cifrar '+update.contrasenya)
     if(update.contrasenya){
         bcrypt.hash(update.contrasenya,null,null,function(err,hash){
             if (err) {
-                return res.status(500).send({ message: 'Error al encriptar la contraseña' });
-            }
+                return res.status(500).send({ message: 'Error al encriptar la contraseña'});
+		    }
 
-            update.contrasenya=hash;
+		    update.contrasenya=hash;
             
-            Usuario.findByIdAndUpdate(userId, update).then((userUpdated)=>{
+
+            Usuario.findByIdAndUpdate(userId, {contrasenya:update.contrasenya})
+            .then((userUpdated)=>{
                 if(!userUpdated){
-                    res.status(404).send({message:'No se ha podidio actualizar el usuario'});
+                    res.status(404).send({message:'No se ha podidio actualizar la contraseña'});
                 }else{
                     res.status(200).send({user:userUpdated});
                 }
@@ -155,8 +154,30 @@ function updateUser(req,res){
             });
         });
     }else{
-        res.status(200).send({message:'Introduce la contraseña'});
+      res.status(200).send({message:'Introduce la contraseña'});
     }
+}
+
+
+// Actualizar usuario
+function updateUser(req,res){
+    let userId=req.params.id;
+    let update=req.body;
+
+    if(userId!=req.user.sub){
+       return res.status(500),send({message:'No tienes permiso para actualizar este usuario'});
+    }
+   
+    Usuario.findByIdAndUpdate(userId, update).then((userUpdated)=>{
+        if(!userUpdated){
+            res.status(404).send({message:'No se ha podidio actualizar el usuario'});
+        }else{
+            res.status(200).send({user:userUpdated});
+        }
+    })
+    .catch(err=>{
+        res.status(500),send({message:'Error al actualizar el usuario'});
+    });
 }
 
 // Cambiar de rol
@@ -180,36 +201,39 @@ function updateRol(req,res){
 
 // Subir imagenes de usuario
 function uploadImage(req,res){
-    let userId=req.params.id;
-    let file_name='Imagen no subida...';
+    let userId = req.params.id;
+    let file_name = 'Imagen no subida...';
 
-    if(req.files){
-         // Puede que en un futuro haya que sustituir req.files.image.path <--RESUELTO
-        let file_path=req.files.imagen.path;
-        let file_split=file_path.split('\\');
-        let file_name= file_split[2];
+    if (req.files && req.files.imagen) {
+        let file_path = req.files.imagen.path;
+        let file_name = path.basename(file_path);
+        let ext_split = file_name.split('.');
+        let file_ext = ext_split[ext_split.length - 1];
 
-        let ext_split=file_name.split('\.');
-        let file_ext=ext_split[1];
+        console.log('Imagen que esta en el controlador api '+file_name)
 
-       if(file_ext=='png'|| file_ext=='jpg'||file_ext=='gif'){
-            Usuario.findByIdAndUpdate(userId,{imagen:file_name}).then(userUpdated=>{
-                if(!userUpdated){
-                    res.status(404).send({message:'No se ha podidio actualizar la imagen de usuario'});
-                }else{
-                    res.status(200).send({imagen:file_name,user:userUpdated});
-                }
-            })
-            .catch(err=>{
-                res.status(200).send({message:'Error al subir la imagen'})
-            });
-       }else{
-            res.status(200).send({message:'Extension del archivo no valida'});
-       }
-
-    }else{
-        res.status(200).send({message:'No se ha subido ninguna imagen...'});
+        if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'gif') {
+            Usuario.findByIdAndUpdate(userId, { imagen: file_name })
+                .then(userUpdated => {
+                    if (!userUpdated) {
+                        res.status(404).send({ message: 'No se ha podido actualizar la imagen de usuario' });
+                    } else {
+                        res.status(200).send({ imagen: file_name, user: userUpdated });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({ message: 'Error al subir la imagen', error: err });
+                });
+        } else {
+            res.status(400).send({ message: 'Extensión del archivo no válida' });
+        }
+    } else {
+        res.status(400).send({ message: 'No se ha subido ninguna imagen...' });
     }
+}
+
+module.exports = {
+    uploadImage
 }
 
 // Mostrar imagen de usuario
@@ -235,5 +259,6 @@ module.exports={
     getImageFile,
     getUsuarios,
     deleteUsuario,
-    updateRol
+    updateRol,
+    updatePassword
 };

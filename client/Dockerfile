@@ -41,7 +41,7 @@ FROM nginx:alpine
 COPY default.conf /etc/nginx/conf.d/default.conf
 
 # Copiar los archivos construidos de Angular desde la fase de construcción al directorio de Nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/client/browser /usr/share/nginx/html
 
 # Exponer el puerto
 EXPOSE 80

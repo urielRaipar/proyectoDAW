@@ -27,6 +27,8 @@ export class ActualizarUsuarioComponent implements OnInit {
   public rellenar:any;
   public emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   public imageRegex: RegExp = /\.(jpg|jpeg|png)$/i;
+  public rellenarPass:any;
+
 
   constructor(
     private _usuarioServicio:UsuarioServicio
@@ -40,17 +42,20 @@ export class ActualizarUsuarioComponent implements OnInit {
     this.url=GLOBAL.url;
   }
 
+ 
   ngOnInit(){
       console.log('actualizar-usuario.component.ts cargado')
   }
 
+  
   // Actualizar usuario
   onSubmit(){
-    if (this.usuario.nombre == '' || this.usuario.apellidos == '' || this.usuario.contrasenya == '' || this.usuario.email == '') {
+    if (this.usuario.nombre == '' || this.usuario.apellidos == '' || this.usuario.email == '') {
       this.rellenar = 'Tienes que rellenar todos los campos';
     } else if (this.usuario.email && !this.emailRegex.test(this.usuario.email)) {
       this.rellenar = 'El correo electrónico no es válido';
     } else {
+
       this._usuarioServicio.updateUser(this.usuario).subscribe(
         (response: any) => {
           if (!response.user) {
@@ -121,5 +126,29 @@ export class ActualizarUsuarioComponent implements OnInit {
       xhr.setRequestHeader('Authorization',token);
       xhr.send(formData);
     });
+  }
+
+  // Actualizar contraseña
+  actualizarPass(){
+    if (this.usuario.contrasenya == ''){
+      this.rellenarPass='Tienes que rellenar la contraseña'
+    }else{
+      console.log('En el ts '+this.usuario)
+      this._usuarioServicio.updatePassword(this.usuario).subscribe(
+      (response: any) => {
+        if (!response.user) {
+          this.rellenarPass = 'La contraseña no se ha actualizado';
+        } else {
+          this.rellenarPass = 'La contraseña se ha actualizado correctamente';
+          localStorage.setItem('identity', JSON.stringify(this.usuario));
+        }
+      },  
+      (error) => {
+        let errorMessage = <any>error;
+        if (errorMessage != null) {
+          this.alertUpdate = error.error.message;
+        }
+      });
+    }
   }
 }

@@ -11,6 +11,35 @@ const Usuario = require('./modelos/usuario');
 // URL de conexión a la base de datos MongoDB
 const url = 'mongodb://mongodb:27017/webapp_musica';
 
+async function borrarYCrearBaseDeDatos() {
+    try {
+        // Conexión a la base de datos
+        await mongoose.connect(url);
+        console.log('Conectado a la base de datos');
+
+        // Verificar si la base de datos existe
+        const listaDeBasesDeDatos = await mongoose.connection.db.admin().listDatabases();
+        const baseDeDatosExiste = listaDeBasesDeDatos.databases.some(db => db.name === 'webapp_musica');
+
+        if (baseDeDatosExiste) {
+            // Eliminar la base de datos existente
+            await mongoose.connection.db.dropDatabase();
+            console.log('Base de datos eliminada');
+        } else {
+            console.log('La base de datos no existe. No es necesario borrarla.');
+        }
+
+        // Crear y insertar los datos
+        await crearYInsertar();
+    } catch (error) {
+        console.error('Error al borrar y crear la base de datos:', error);
+    } finally {
+        // Cerrar la conexión a la base de datos
+        mongoose.connection.close();
+    }
+}
+
+
 async function crearYInsertar() {
     try {
         // Conexión a la base de datos
@@ -263,4 +292,4 @@ async function insertarCanciones(albums) {
 }
 
 // Llamar a la función para crear e insertar los datos
-crearYInsertar();
+borrarYCrearBaseDeDatos();

@@ -43,7 +43,7 @@ onSubmitRegister(){
           this.alertRegister='El registro se ha realizado correctamente';
           this.usuario_registro = new Usuario('', '', '', '', '', 'ROLE_USER', '');
           setTimeout(() => {
-            location.href = 'http://localhost:4200/';
+            location.href = 'http://localhost:80/';
           }, 2000);
         }
       },  

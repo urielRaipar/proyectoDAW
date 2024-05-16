@@ -94,6 +94,19 @@ export class UsuarioServicio{
         return this._http.put(this.url+'update-rol/'+user_update,{},{headers:headers}).pipe(map(res=>res));
     }
 
+    // Actualizar contraseña
+    updatePassword(user_update:any){
+        let params=JSON.stringify(user_update);
+        let headers= new HttpHeaders({
+            'Content-Type':'application/json',
+            'Authorization':this.getToken()
+        });
+
+        console.log('servicio usuario '+params)
+    
+        return this._http.put(this.url+'update-password/'+user_update._id,params,{headers:headers}).pipe(map(res=>res));
+    }
+
 
     // Eliminar usuario
     deleteUser(token:any,id:string){

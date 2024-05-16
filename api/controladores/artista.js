@@ -122,36 +122,37 @@ function deleteArtist(req, res){
 
 // Subir imagenes de artista
 function uploadImage(req,res){
-   let artistId=req.params.id;
-   let file_name='No subido...';
+    let artistId = req.params.id;
+    let file_name = 'No subido...';
 
-   if(req.files){
-        let file_path=req.files.imagen.path;
-        let file_split = file_path.split('\\');
-        let file_name=file_split[2];
+    if (req.files && req.files.imagen) {
+        let file_path = req.files.imagen.path;
+        let file_name = path.basename(file_path);
+        let ext_split = file_name.split('.');
+        let file_ext = ext_split[ext_split.length - 1].toLowerCase();
 
-        let ext_split=file_name.split('\.');
-        let file_ext=ext_split[1];
-
-        if(file_ext=='png' || file_ext=='jpg' || file_ext=='gif'){
-            Artista.findByIdAndUpdate(artistId,{imagen:file_name}).then(artistUpdated=>{
-                if(!artistUpdated){
-                    res.status(404).send({message:'No se ha podidio actualizar la imagen de usuario'});
-                }else{
-                    res.status(200).send({artist:artistUpdated});
-                }
-            })
-            .catch(err=>{
-                res.status(500).send({message: 'Error al subir la imagen'});
-            })
-        }else{
-            res.status(200).send({message:'Extension del archivo no valida'});
+        if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'gif') {
+            Artista.findByIdAndUpdate(artistId, { imagen: file_name })
+                .then(artistUpdated => {
+                    if (!artistUpdated) {
+                        res.status(404).send({ message: 'No se ha podido actualizar la imagen de usuario' });
+                    } else {
+                        res.status(200).send({ artist: artistUpdated });
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({ message: 'Error al subir la imagen', error: err });
+                });
+        } else {
+            res.status(400).send({ message: 'Extensión del archivo no válida' });
         }
-   }else{
-        res.status(200).send({message:'No se ha subido ninguna imagen...'});
-   }
+    } else {
+        res.status(400).send({ message: 'No se ha subido ninguna imagen...' });
+    }
+}
 
-  
+module.exports = {
+    uploadImage
 }
 
 // Mostrar imagen de artista
