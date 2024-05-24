@@ -1,7 +1,9 @@
 /* General */
-/* .principal{
-  height: 100rem;
-} */
+.principal{
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+} 
 
 /* Login */
 .formularios{
@@ -181,6 +183,14 @@
   flex-direction: column;
 }
 
+.router-outlet-wrapper {
+  flex-grow: 1; /* Este div ocupará todo el espacio disponible en la columna */
+}
+
+.reproductor-wrapper {
+  margin-top: auto; /* Empujará el div al final del contenedor */
+}
+
 /* Breakpoints menu principal */
 @media screen and (max-width: 1151px) {
   .navegador{
@@ -219,9 +229,3 @@
     margin: 0;
   }
 }
-
-
-
-
-
-
