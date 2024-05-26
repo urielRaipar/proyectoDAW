@@ -66,6 +66,7 @@ export class ActualizarAlbumComponent implements OnInit{
         (response:any)=>{
             if(!response.album){
               this._router.navigate(['/artista',this.album.artista]);
+              
             }else{
               // this.alertMessage='El album se ha creado correctamente';
               this.album=response.album;
@@ -123,6 +124,9 @@ export class ActualizarAlbumComponent implements OnInit{
               }
 
               this._router.navigate(['/album', id]); // Redirigir al detalle del álbum actualizado
+              setTimeout(function() {
+                location.reload();
+              }, 2000);
             }
           },
           (error) => {

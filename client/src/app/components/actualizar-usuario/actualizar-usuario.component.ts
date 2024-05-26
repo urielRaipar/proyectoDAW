@@ -78,6 +78,9 @@ export class ActualizarUsuarioComponent implements OnInit {
                   // Actualizar imagen sin recargar la página
                   let image_path = this.url + '/get-image-user/' + this.usuario.imagen;
                   document.getElementById('imagen_usuario')?.setAttribute('src', image_path);
+                  setTimeout(function() {
+                    location.reload();
+                  }, 2000);
                 })
                 .catch((error: any) => {
                   console.error('Error al subir la imagen:', error);
