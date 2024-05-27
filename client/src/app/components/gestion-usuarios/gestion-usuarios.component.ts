@@ -46,6 +46,7 @@ export class GestionUsuariosComponent implements OnInit{
     this.getUsuarios()
   }
 
+  // Mostrar usuarios
   getUsuarios(){
     this._userService.getUsuarios(this.token).subscribe((response:any)=>{
       if(!response.usurs){
@@ -67,7 +68,7 @@ export class GestionUsuariosComponent implements OnInit{
   )
 }
 
-
+// Borrar usuario
   borrarU() {
     let id=this.usuarioSeleccionado;
     this._userService.deleteUser(this.token,id).subscribe(
@@ -94,7 +95,7 @@ export class GestionUsuariosComponent implements OnInit{
     ); 
   }
 
-
+// Asignar administrador
   asignarAdmin(){
     let id=this.usuarioSeleccionado;
     this._userService.updateRol(id).subscribe(
