@@ -85,23 +85,25 @@ export class ActualizarArtistaComponent implements OnInit{
       return; // Agregar un return para salir de la función si faltan campos
    }
 
-   if (!this.filesToUpload || this.filesToUpload.length === 0) {
+   if (this.artista.imagen === 'null' && (this.filesToUpload == undefined || this.filesToUpload.length === 0)) {
      this.alertMessage = 'Debes seleccionar una imagen para subir.';
      return; // Salir de la función si no hay archivos seleccionados
    }
 
-   let validFile = false;
-   for (let i = 0; i < this.filesToUpload.length; i++) {
-     const file = this.filesToUpload[i];
-     if (this.expresion.test(file.name)) {
-       validFile = true;
-       break;
-     }
-   }
+   if (this.filesToUpload !== undefined && this.filesToUpload.length > 0) {
+    let validFile = false;
+    for (let i = 0; i < this.filesToUpload.length; i++) {
+      const file = this.filesToUpload[i];
+      if (this.expresion.test(file.name)) {
+        validFile = true;
+        break;
+      }
+    }
 
-   if (!validFile) {
-     this.alertMessage = 'Ninguno de los archivos seleccionados tiene una extensión válida (.jpg, .jpeg o .png).';
-     return; // Salir de la función si ningún archivo cumple con la extensión requerida
+    if (!validFile) {
+      this.alertMessage = 'Ninguno de los archivos seleccionados tiene una extensión válida (.jpg, .jpeg o .png).';
+      return; // Salir de la función si ningún archivo cumple con la extensión requerida
+    }
    }
 
    this._route.params.forEach((params:Params)=>{
@@ -114,6 +116,7 @@ export class ActualizarArtistaComponent implements OnInit{
          }else{
            this.alertMessage='El artista se ha actualizado correctamente';
            // Subir la imagen del artista
+           if (this.filesToUpload !== undefined && this.filesToUpload.length > 0) {
            this._uploadService.makeFileRequest(this.url+'upload-image-artist/'+id,[],this.filesToUpload,this.token,'imagen')
              .then((result)=>{
                this._router.navigate(['/artista',response.artist._id])
@@ -121,6 +124,9 @@ export class ActualizarArtistaComponent implements OnInit{
              (error)=>{
                console.log(error)
              });
+            }else{
+              this._router.navigate(['/artista', response.artist._id]);
+            }
          }
        },
        (error)=>{

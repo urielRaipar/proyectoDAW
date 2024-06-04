@@ -140,15 +140,13 @@ export class AppComponent implements OnInit {
   logout(){
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
-
     // Eliminacion global
     localStorage.clear();
-
     this.identificacion=null;
     this.token=null;
-
-    location.reload();
+    this._router.navigate(['/']);
+    setTimeout(()=>{
+      window.location.reload();
+    },500);
   }
-
-
 }

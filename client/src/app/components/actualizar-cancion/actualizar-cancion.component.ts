@@ -91,21 +91,21 @@ export class ActualizarCancionComponent implements OnInit {
         return; // Agregar un return para salir de la función si faltan campos
       }
   
-      if (!this.filesToUpload || this.filesToUpload.length === 0) {
+      if ((this.cancion.ficheroMP3 === 'null' || !this.cancion.ficheroMP3) && (!this.filesToUpload || this.filesToUpload.length === 0)) {
         this.alertMessage = 'Debes seleccionar un archivo para subir.';
         return; // Salir de la función si no hay archivos seleccionados
       }
   
-      let validFile = false;
-      for (let i = 0; i < this.filesToUpload.length; i++) {
-        const file = this.filesToUpload[i];
-        if (this.fileRegex.test(file.name)) {
-          validFile = true;
-          break;
-        }
-      }
+      // let validFile = false;
+      // for (let i = 0; i < this.filesToUpload.length; i++) {
+      //   const file = this.filesToUpload[i];
+      //   if (this.fileRegex.test(file.name)) {
+      //     validFile = true;
+      //     break;
+      //   }
+      // }
   
-      if (!validFile) {
+      if (this.filesToUpload && this.filesToUpload.length > 0 && !this.fileRegex.test(this.filesToUpload[0].name)) {
         this.alertMessage = 'Ninguno de los archivos seleccionados tiene una extensión válida (.mp3 o .mp4).';
         return; // Salir de la función si ningún archivo cumple con la extensión requerida
       }
@@ -120,6 +120,7 @@ export class ActualizarCancionComponent implements OnInit {
             }else{
               this.alertMessage='La canción se ha actualizado correctamente';
               // Subir fichero de audio
+              if (this.filesToUpload && this.filesToUpload.length > 0) {
               this._uploadService.makeFileRequest(this.url+'subir-fichero-audio/'+id,[],this.filesToUpload,this.token,'ficheroMP3')
                 .then((result)=>{
                   this._router.navigate(['/album',response.songs.album])
@@ -127,6 +128,9 @@ export class ActualizarCancionComponent implements OnInit {
                 (error)=>{
                   console.log(error)
                 });
+              }else{
+                this._router.navigate(['/album', response.songs.album]);
+              }  
             }
           },
           (error)=>{

@@ -89,52 +89,52 @@ export class ActualizarAlbumComponent implements OnInit{
   onSubmit(){
     if (this.album.titulo == '' || this.album.descripcion == '' || this.album.anyo == null) {
       this.rellenar = 'Tienes que rellenar todos los campos';
-    } else {
-      if (!this.filesToUpload) {
-        this.alertMessage = 'Debes seleccionar una imagen para subir.';
-        return;
-      }
+    } 
 
-      if (!this.imageRegex.test(this.filesToUpload[0].name)) {
-        this.alertMessage = 'La imagen seleccionada no tiene una extensión válida (.jpg, .jpeg o .png).';
-        return;
-      }
-
-      this._route.params.forEach((params: Params) => {
-        let id = params['id'];
-
-        this._albumService.editAlbum(this.token, id, this.album).subscribe(
-          (response: any) => {
-            if (!response.album) {
-              this.alertMessage = 'Error en el servidor';
-            } else {
-              this.alertMessage = 'El album se ha actualizado correctamente';
-
-              // Subir la imagen del álbum
-              if (this.filesToUpload) {
-                this._uploadService.makeFileRequest(this.url + 'upload-image-album/' + id, [], this.filesToUpload, this.token, 'imagen')
-                  .then(
-                    (result) => {
-                      console.log('Imagen subida correctamente');
-                    },
-                    (error: any) => {
-                      console.log(error);
-                    }
-                  );
-              }
-
-              this._router.navigate(['/album', id]); // Redirigir al detalle del álbum actualizado
-              setTimeout(function() {
-                location.reload();
-              }, 2000);
-            }
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      });
+    if (this.album.imagen=='' && (this.filesToUpload == undefined || this.filesToUpload.length === 0)) {
+      this.alertMessage = 'Debes seleccionar una imagen para subir.';
+      return;
     }
+
+    if (this.filesToUpload && this.filesToUpload.length > 0 && !this.imageRegex.test(this.filesToUpload[0].name)) {
+      this.alertMessage = 'La imagen seleccionada no tiene una extensión válida (.jpg, .jpeg o .png).';
+      return;
+    }
+
+    this._route.params.forEach((params: Params) => {
+      let id = params['id'];
+
+      this._albumService.editAlbum(this.token, id, this.album).subscribe(
+        (response: any) => {
+          if (!response.album) {
+            this.alertMessage = 'Error en el servidor';
+          } else {
+            this.alertMessage = 'El album se ha actualizado correctamente';
+
+            // Subir la imagen del álbum
+            if (this.filesToUpload && this.filesToUpload.length > 0) {
+              this._uploadService.makeFileRequest(this.url + 'upload-image-album/' + id, [], this.filesToUpload, this.token, 'imagen')
+                .then(
+                  (result) => {
+                    console.log('Imagen subida correctamente');
+                  },
+                  (error: any) => {
+                    console.log(error);
+                  }
+                );
+            }
+
+            this._router.navigate(['/album', id]); // Redirigir al detalle del álbum actualizado
+            setTimeout(function() {
+              location.reload();
+            }, 2000);
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    });
   }
 
   fileChangeEvent(fileInput:any){
