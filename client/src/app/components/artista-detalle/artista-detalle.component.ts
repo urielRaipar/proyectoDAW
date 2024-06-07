@@ -65,7 +65,6 @@ export class ArtistaDetalleComponent implements OnInit{
             this.artista=response.artist;
 
             // Sacar los albums del artista
-            console.log(response.artist._id)
             this._albumService.getAlbums(this.token,response.artist._id).subscribe(
               (response:any)=>{
                 if (!response.albums) {

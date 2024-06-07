@@ -51,7 +51,6 @@ export class AnyadirArtistaComponent implements OnInit{
     if(this.artista.nombre=='' || this.artista.descripcion==''){
       this.rellenar='Tienes que rellenar todos los campos';
    }else{
-    console.log(this.artista)
     this._artistaServicio.addArtist(this.token,this.artista).subscribe(
       (response:any)=>{
        

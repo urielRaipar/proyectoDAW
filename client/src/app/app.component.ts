@@ -85,8 +85,6 @@ export class AppComponent implements OnInit {
     this.identificacion=JSON.parse(this._usuarioServicio.getIdentity());
     this.token=this._usuarioServicio.getToken();
 
-    // console.log(this.identificacion)
-    // console.log(this.token)
   }
 
   // Logearse
@@ -114,8 +112,6 @@ export class AppComponent implements OnInit {
             } else {
               // Crear elemento en el localstorage para tener el token disponible
               localStorage.setItem('token',this.token);
-              console.log(this.token);
-              console.log(this.identificacion)
             }
           },
             (error) => {

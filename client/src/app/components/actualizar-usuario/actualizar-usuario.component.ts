@@ -101,7 +101,6 @@ export class ActualizarUsuarioComponent implements OnInit {
   // Subir ficheros
   fileChangeEvent(fileInput:any){
     this.filesToUpload=<Array<File>>fileInput.target.files;
-    console.log(this.filesToUpload)
   }
 
   // Subir fichero a la base de datos con autorizacion de token
@@ -136,7 +135,6 @@ export class ActualizarUsuarioComponent implements OnInit {
     if (this.usuario.contrasenya == ''){
       this.rellenarPass='Tienes que rellenar la contraseña'
     }else{
-      console.log('En el ts '+this.usuario)
       this._usuarioServicio.updatePassword(this.usuario).subscribe(
       (response: any) => {
         if (!response.user) {

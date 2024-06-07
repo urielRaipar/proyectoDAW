@@ -102,7 +102,6 @@ export class UsuarioServicio{
             'Authorization':this.getToken()
         });
 
-        console.log('servicio usuario '+params)
     
         return this._http.put(this.url+'update-password/'+user_update._id,params,{headers:headers}).pipe(map(res=>res));
     }
