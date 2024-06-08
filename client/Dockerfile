@@ -1,21 +1,3 @@
-# Usa una imagen base de Node.js
-# FROM node:latest AS angular
-
-# Establece el directorio de trabajo dentro del contenedor
-# WORKDIR /app
-
-# Copia los archivos de la aplicación Angular al contenedor
-# COPY . /app/
-
-# Instala las dependencias y compila la aplicación
-# RUN npm install
-# RUN npm run build
-
-# Utiliza un servidor web simple para servir la aplicación Angular compilada
-# FROM nginx:alpine
-# COPY --from=angular /app/dist/client /usr/share/nginx/html
-
-
 # Fase de construcción de Angular
 FROM node:latest AS build
 
